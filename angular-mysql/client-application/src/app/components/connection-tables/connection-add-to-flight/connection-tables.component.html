@@ -1,0 +1,43 @@
+<div class="container d-flex justify-content-center align-items-center col-md-10 mt-5">
+    <div class="row justify-content-md-center  col-md-10">
+        <div class=" col-md-9 card-header bg-dark text-white d-flex ">
+            Add new flight
+        </div>
+        <div class="card col-md-9">
+            <div class="card-body">
+
+                <div class="form">
+                    <div class="form-group ">
+                        <label for="connectt">
+                            Select name and last name
+                        </label>
+
+                        <select id="tourist.id_tourist" name="tourist.id_tourist" [(ngModel)]="connections.id_tourist"
+                            class="form-control">
+                            <option *ngFor="let con of connect" [value]="con.id_tourist">
+                                id: {{con.id_tourist}} {{con.first_name}} {{con.last_name}}
+                            </option>
+                        </select>
+
+                        <label for="connect2">
+                            Select flight
+                        </label>
+
+                        <select id="flightt.id_flight" name="flightt.id_flight" [(ngModel)]="connections.id_flight"
+                            class="form-control">
+                            <option *ngFor="let con2 of connect2" [value]="con2.id_flight">
+                                id: {{con2.id_flight}} Departure: {{con2.departure_date | date:'medium'}} arrival:
+                                {{con2.arrival_date | date:'medium'}}
+                            </option>
+                        </select>
+
+                        <br><br>
+                        <button class="btn btn-success btn-block" (click)="saveNewTourist()">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

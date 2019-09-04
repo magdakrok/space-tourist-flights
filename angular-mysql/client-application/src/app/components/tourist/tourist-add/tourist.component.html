@@ -1,0 +1,45 @@
+<div class="container d-flex justify-content-center align-items-center col-md-10 mt-5">
+    <div class="row justify-content-md-center col-md-10">
+        <div class=" col-md-10 card-header bg-dark text-white d-flex ">
+            Add new tourist
+        </div>
+        <div class=" card col-md-10 ">
+            <div class="card-body">
+                <div class="form">
+                    <div class="form-group">
+                        Name
+                        <input type="text" name="first_name" [(ngModel)]="tourist.first_name" class="form-control"
+                            autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        Last name
+                        <input type="text" name="last_name" [(ngModel)]="tourist.last_name" class="form-control"
+                            autofocus>
+                    </div>
+                    <div class="form-group">
+                        Gender
+                        <input type="text" name="gender" [(ngModel)]="tourist.gender" class="form-control" autofocus>
+                    </div>
+                    <div class="form-group">
+                        Country
+                        <input type="text" name="country" [(ngModel)]="tourist.country" class="form-control" autofocus>
+                    </div>
+                    <div class="form-group">
+                        Remarks
+                        <input type="text" name="remarks" [(ngModel)]="tourist.remarks" class="form-control" autofocus>
+                    </div>
+                    <div class="form-group">
+                        Date of birth
+                        <input type="date" name="date_of_birth" [(ngModel)]="tourist.date_of_birth" class="form-control"
+                            autofocus>
+                    </div>
+                    <button class="btn btn-success btn-block"
+                        (click)="editTourist ? updateTourist() : saveNewTourist()">
+                        SAVE
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
