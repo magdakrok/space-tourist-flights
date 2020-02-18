@@ -15,7 +15,7 @@ const database_1 = __importDefault(require("../database"));
 class ConnectionController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query("SELECT * FROM flight, tourist, connections  where connections.id_tourist = tourist.id_tourist and connections.id_flight = flight.id_flight ", (err, rows, fields) => {
+            yield database_1.default.query("SELECT *  FROM flight, tourist, connections  where connections.id_tourist = tourist.id_tourist and connections.id_flight = flight.id_flight ", (err, rows, fields) => {
                 if (err) {
                     console.log("Failed to query for users: " + err);
                     res.sendStatus(500);
@@ -60,7 +60,41 @@ class ConnectionController {
         });
     }
     createConnection(req, res) {
+        const id_flight = req.params.id_flight;
+        //let checkNumberOfSeats = this.checkRes(id_flight);
+        //let numberOfSeats = this.listNumberOfSeats(id_flight);
+        //const c = this.list(req: Request, res: Response);
+        // if(checkNumberOfSeats <= numberOfSeats ){
         database_1.default.query("INSERT INTO connections set ? ", [req.body]);
+        // console.log()
+        // }
+    }
+    checkRes(id_flight) {
+        //const id_flight = req.params.id_flight;
+        database_1.default.query("SELECT COUNT(?) FROM connections", [id_flight], (err, rows, fields) => {
+            if (err) {
+                console.log("Failed to query for users: " + err);
+                // res.sendStatus(500);
+            }
+            //res.json(rows);
+            console.log("I think we fetched users successfully");
+            console.log(rows);
+            return rows;
+        });
+    }
+    listNumberOfSeats(id_flight) {
+        return __awaiter(this, void 0, void 0, function* () {
+            //const id_flight = req.params.id_flight;
+            yield database_1.default.query("SELECT number_of_seats FROM flight where id_flight = ?", [id_flight], (err, rows, fields) => {
+                if (err) {
+                    console.log("Failed to query for users: " + err);
+                    // res.sendStatus(500);
+                }
+                //res.json(rows);
+                console.log("I think we fetched users successfully");
+                console.log(rows);
+            });
+        });
     }
 }
 exports.connectionsController = new ConnectionController();

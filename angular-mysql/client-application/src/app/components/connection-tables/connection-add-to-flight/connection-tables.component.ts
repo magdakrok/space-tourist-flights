@@ -26,6 +26,7 @@ export class ConnectionsTablesComponent implements OnInit {
   firstName: string;
   lastName: string;
 
+  count: number = 0;
 
 
   @HostBinding('class') classes = 'row';
@@ -98,50 +99,44 @@ export class ConnectionsTablesComponent implements OnInit {
     })
   }
    
-  saveNewTourist(firstName: string, lastName: string) {
+  saveNewTourist() {
 
-    this.firstName=firstName;
-    this.lastName=lastName;
+    //this.firstName=firstName;
+    //this.lastName=lastName;
 
-    console.log(firstName,lastName);
+    //console.log(firstName,lastName);
    
-    
-
-      for(let id of this.reservation){
-         if(this.firstName == id.first_name && this.lastName == id.last_name && 
-          this.connections.id_flight == id.id_flight && this.connections.id_flight == id.id_flight) 
-          {
-          console.log(id.first_name, id.last_name, id.id_flight );
-         this.flag=true;
-           break;
-         }
-        else{
-          this.flag=false;
-        }
+    for(let id of this.reservation){
+      if(this.tourist.first_name == id.first_name && this.tourist.last_name == id.last_name && 
+       this.connections.id_flight == id.id_flight && this.connections.id_flight == id.id_flight) 
+       {
+       console.log(id.first_name, id.last_name, id.id_flight );
+      this.flag=true;
+        break;
       }
-
-     
-      
-
-      
-      
-      
-     // }
-    
-    console.log(this.flag);
-    //else {
-      
-    // this.connectionsService.saveConnection(this.connections)
-      //.subscribe(
-      //  res => {
-
-        //  console.log(res),
-         //   console.log("save successed");
-
-       // },
-       // err => console.error(err)
-      //);
+     else{
+       this.flag=false;
+     }
    }
+      
+   if(this.flag === false){
+      
+      
+this.connectionsService.saveConnection(this.connections)
+      .subscribe(
+       res => {
+
+         console.log(res),
+         console.log("save successed");
+
+        },
+       err => console.error(err)
+      );
+   }
+  else{
+    console.log("Jesteś zapisany na ten lot");
+  }
+}
    
   }
 

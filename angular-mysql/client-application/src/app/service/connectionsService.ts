@@ -20,13 +20,18 @@ export class ConnectionsService {
     return this.http.get('http://localhost:3000/api/connection');
   
   }
+ 
+ 
+  
+
+  
   deleteData(id_connections: string){
     return this.http.delete(`http://localhost:3000/api/connection/${id_connections}`);
   }
 
   saveConnection(connections: Connections){
     console.log(connections);
-    return this.http.post(`http://localhost:3000/api/connection/`, connections);
+    return this.http.post(`http://localhost:3000/api/connection`, connections);
   }
  
   
