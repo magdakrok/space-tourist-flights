@@ -15,7 +15,6 @@ const database_1 = __importDefault(require("../database"));
 class ConnectionController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            //const id_tourist = req.params.id_tourist
             yield database_1.default.query("SELECT * FROM flight, tourist, connections  where connections.id_tourist = tourist.id_tourist and connections.id_flight = flight.id_flight ", (err, rows, fields) => {
                 if (err) {
                     console.log("Failed to query for users: " + err);

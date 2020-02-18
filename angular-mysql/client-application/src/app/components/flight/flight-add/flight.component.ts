@@ -3,6 +3,8 @@ import { Flight } from '../../../models/flight';
 import { FlightService } from '../../../service/flight.service';
 
 import { Router, ActivatedRoute } from '@angular/router';
+import { Time } from '@angular/common';
+
 
 @Component({
   selector: 'app-flight',
@@ -15,7 +17,9 @@ export class FlightComponent implements OnInit {
 
   flight: Flight = {
     departure_date: new Date,
+   
     arrival_date: new Date,
+    
     number_of_seats: 0,
     ticket_price: 0,
   };

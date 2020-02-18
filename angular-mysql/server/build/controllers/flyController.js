@@ -15,7 +15,6 @@ const database_1 = __importDefault(require("../database"));
 class FlyController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            //const userId = req.params.id_
             yield database_1.default.query("SELECT * FROM flight ", (err, rows, fields) => {
                 if (err) {
                     console.log("Failed to query for users: " + err);

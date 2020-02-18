@@ -26,7 +26,6 @@ class Server {
         this.app.use('/api/tourist', touristRoutes_1.default);
         this.app.use('/api/flys', flyRoutes_1.default);
         this.app.use('/api/connection', connectionsRoutes_1.default);
-        // this.app.use('api/fly/conn', flyRoutes );
     }
     start() {
         this.app.listen(this.app.get('port'), () => {

@@ -12,12 +12,16 @@
                             Select name and last name
                         </label>
 
-                        <select id="tourist.id_tourist" name="tourist.id_tourist" [(ngModel)]="connections.id_tourist"
-                            class="form-control">
-                            <option *ngFor="let con of connect" [value]="con.id_tourist">
-                                id: {{con.id_tourist}} {{con.first_name}} {{con.last_name}}
-                            </option>
-                        </select>
+                        <div class="form-group">
+                            Name
+                            <input type="text" name="firstName" [(ngModel)]="connections.first_name" class="form-control"
+                                autofocus>
+                        </div>
+                        <div class="form-group">
+                            Last name
+                            <input type="text" name="lastName" [(ngModel)]="connections.last_name" class="form-control"
+                                autofocus>
+                        </div>
 
                         <label for="connect2">
                             Select flight
@@ -26,13 +30,23 @@
                         <select id="flightt.id_flight" name="flightt.id_flight" [(ngModel)]="connections.id_flight"
                             class="form-control">
                             <option *ngFor="let con2 of connect2" [value]="con2.id_flight">
-                                id: {{con2.id_flight}} Departure: {{con2.departure_date | date:'medium'}} arrival:
-                                {{con2.arrival_date | date:'medium'}}
+                                Departure: {{con2.departure_date | date:'medium'}} 
+                               
                             </option>
                         </select>
 
+                        <select id="flightt.id_flight" name="flightt.id_flight" [(ngModel)]="connections.id_flight"
+                            class="form-control">
+                            <option *ngFor="let con2 of connect2" [value]="con2.id_flight">
+                                
+                                Arrival: {{con2.arrival_date | date:'medium'}}
+                            </option>
+                        </select>
+
+                       
+
                         <br><br>
-                        <button class="btn btn-success btn-block" (click)="saveNewTourist()">
+                        <button class="btn btn-success btn-block" (click)="saveNewTourist(connections.first_name,connections.last_name)">
                             Save
                         </button>
                     </div>
