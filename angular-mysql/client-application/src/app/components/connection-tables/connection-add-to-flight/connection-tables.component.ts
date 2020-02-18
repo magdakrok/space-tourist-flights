@@ -6,6 +6,7 @@ import { TouristService } from './../../../service/tourist.service';
 import { ConnectionsService } from './../../../service/connectionsService';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FlightService } from 'src/app/service/flight.service';
+import { connect } from 'net';
 
 
 
@@ -87,6 +88,8 @@ export class ConnectionsTablesComponent implements OnInit {
       })
   }
 
+  
+
 
   getReservation(){
     this.connectionsService.getData().subscribe(
@@ -101,29 +104,30 @@ export class ConnectionsTablesComponent implements OnInit {
    
   saveNewTourist() {
 
-    //this.firstName=firstName;
-    //this.lastName=lastName;
-
-    //console.log(firstName,lastName);
-   
-    for(let id of this.reservation){
-      if(this.tourist.first_name == id.first_name && this.tourist.last_name == id.last_name && 
-       this.connections.id_flight == id.id_flight && this.connections.id_flight == id.id_flight) 
+  for(let id of this.reservation){
+      if(this.connections.id_tourist == id.id_tourist && this.connections.id_flight == id.id_flight) 
        {
-       console.log(id.first_name, id.last_name, id.id_flight );
-      this.flag=true;
+       console.log(id.first_name, id.last_name, id.id_connections );
+       this.flag=true;
         break;
       }
      else{
        this.flag=false;
      }
+    
    }
+
+
+console.log(this.connect2.number_of_seats);
+
+
+
       
-   if(this.flag === false){
+console.log(this.flag);
       
-      
+if(this.flag === false){ 
 this.connectionsService.saveConnection(this.connections)
-      .subscribe(
+     .subscribe(
        res => {
 
          console.log(res),
@@ -137,6 +141,8 @@ this.connectionsService.saveConnection(this.connections)
     console.log("Jesteś zapisany na ten lot");
   }
 }
-   
-  }
+
+}
+  
+
 
