@@ -15,6 +15,9 @@ import { ConnectionsService} from './service/connectionsService';
 import {ConnectionsTablesComponent} from './components/connection-tables/connection-add-to-flight/connection-tables.component';
 import { ConnectionDeleteComponent } from './components/connection-tables/connection-delete/connection-delete.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { ReservationComponent } from './components/reservations/reservations/reservation.component';
+import { ReservationService } from './service/reservation.service';
+import { ReservationAddComponent } from './components/reservations/reservation-add/reservation-add.component';
 
 @NgModule({
   declarations:[
@@ -27,6 +30,8 @@ import { HomePageComponent } from './components/home-page/home-page.component';
     ConnectionsTablesComponent,
     ConnectionDeleteComponent,
     HomePageComponent,
+    ReservationComponent,
+    ReservationAddComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +42,8 @@ import { HomePageComponent } from './components/home-page/home-page.component';
   providers: [
     FlightService,
     TouristService,
-    ConnectionsService
+    ConnectionsService,
+    ReservationService
   ],
   bootstrap: [AppComponent],
   

@@ -1,0 +1,41 @@
+<div class="container d-flex justify-content-center align-items-center col-sm-12 pt-5">
+    <div class="row justify-content-md-center  col-sm-12">
+        <div class=" col-sm-12 card-header bg-dark text-white d-flex ">
+            List of flight
+        </div>
+        <div class="col-sm-12">
+            <div class="card text-center">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Departure date:</th>
+                                <th scope="col">Arrival date:</th>
+                                <th scope="col">Number of seats:</th>
+                                <th scope="col">Ticket price:</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody *ngFor='let flights of reser'> 
+                            <tr>
+
+                                <td>{{flights.departure_date | date:'medium'}}</td>
+                                <td>{{flights.arrival_date | date:'medium'}}</td>
+                                <td>{{flights.number_of_seats}}</td>
+                                <td>{{flights.ticket_price}}</td>
+                                
+                                <td>
+                                    <button class="btn btn-success btn-block" [routerLink]="['reservation/add', flights.id_flight]">
+                                        BOOK
+                                    </button>
+                                </td>
+                                </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

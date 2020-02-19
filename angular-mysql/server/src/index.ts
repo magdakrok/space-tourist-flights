@@ -4,6 +4,7 @@ import cors from 'cors';
 import touristRoutes from './routes/touristRoutes';
 import flyRoutes from './routes/flyRoutes';
 import connectionsRoutes from './routes/connectionsRoutes';
+import reservationRoutes from './routes/reservationRoutes';
 
 class Server {
 
@@ -25,6 +26,7 @@ class Server {
         this.app.use('/api/tourist', touristRoutes);
         this.app.use('/api/flys', flyRoutes);
         this.app.use('/api/connection', connectionsRoutes);
+        this.app.use('/api/reservation', reservationRoutes);
     }
     
     start(): void {

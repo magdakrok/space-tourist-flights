@@ -9,6 +9,7 @@ const cors_1 = __importDefault(require("cors"));
 const touristRoutes_1 = __importDefault(require("./routes/touristRoutes"));
 const flyRoutes_1 = __importDefault(require("./routes/flyRoutes"));
 const connectionsRoutes_1 = __importDefault(require("./routes/connectionsRoutes"));
+const reservationRoutes_1 = __importDefault(require("./routes/reservationRoutes"));
 class Server {
     constructor() {
         this.app = express_1.default();
@@ -26,6 +27,7 @@ class Server {
         this.app.use('/api/tourist', touristRoutes_1.default);
         this.app.use('/api/flys', flyRoutes_1.default);
         this.app.use('/api/connection', connectionsRoutes_1.default);
+        this.app.use('/api/reservation', reservationRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get('port'), () => {

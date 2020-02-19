@@ -13,6 +13,7 @@ class TouristRoutes {
         this.router.post('/', touristController_1.touristController.create);
         this.router.delete('/:id_tourist', touristController_1.touristController.delete);
         this.router.put('/:id_tourist', touristController_1.touristController.update);
+        this.router.get('/:first_name/:last_name', touristController_1.touristController.getOneTourist);
     }
 }
 const touristRoutes = new TouristRoutes;

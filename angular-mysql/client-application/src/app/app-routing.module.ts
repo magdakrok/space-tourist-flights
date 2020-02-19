@@ -7,6 +7,8 @@ import {TouristAddComponent} from './components/tourist/tourist-add/tourist.comp
 import {ConnectionsTablesComponent} from '../../../client-application/src/app/components/connection-tables/connection-add-to-flight/connection-tables.component'
 import {ConnectionDeleteComponent} from './components/connection-tables/connection-delete/connection-delete.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { ReservationComponent } from './components/reservations/reservations/reservation.component';
+import { ReservationAddComponent } from './components/reservations/reservation-add/reservation-add.component';
 
 
 const routes: Routes = [
@@ -16,6 +18,15 @@ const routes: Routes = [
     component: HomePageComponent
   },
 
+  {
+    path: "reservation/:departure_date/:arrival_date",
+    component: ReservationComponent
+  },
+
+  {
+    path: "reservation/:departure_date/:arrival_date/reservation/add/:id_flight",
+    component: ReservationAddComponent
+  },
   {
     path: 'flys',
     component: FlightListComponent

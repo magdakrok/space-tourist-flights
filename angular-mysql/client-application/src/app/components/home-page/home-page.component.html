@@ -1,11 +1,40 @@
-<div class="container-fluid ">
-        <div class="row no-gutters ">
-
-                <div class="img-fluid col-sm-7 mt-5  ">
-                        <img class="img-fluid align-left" src="../../../assets/images/racket1.jpg" />
+<div class="container d-flex justify-content-center align-items-center col-md-10 mt-5">
+        <div class="row justify-content-md-center  col-md-10">
+            
+            <div class="card col-md-9">
+                <div class="card-body">
+    
+                    <div class="form">
+                        <div class="form-group ">
+                           
+                           
+    
+                            <label for="connect2">
+                               Check reservation
+                            </label>
+    
+                            <div class="form-group">
+                               Departure date
+                                <input type="date" name="departure_date" [(ngModel)]="flight.departure_date" class="form-control"
+                                    autofocus>
+                            </div>
+    
+                            <div class="form-group">
+                                Arrival date
+                                <input type="date" name="arrival_date" [(ngModel)]="flight.arrival_date" class="form-control"
+                                    autofocus>
+                            </div>
+    
+    
+                           
+    
+                            <br><br>
+                            <button class="btn btn-success btn-block" [routerLink]="['reservation/', flight.departure_date, flight.arrival_date]">
+                                Save
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-5 align-right d-inline-block mt-5 ">
-                        <h1 class="text-md-center pl-3 pt-5">Welcome to the flight system!</h1>
-                </div>
+            </div>
         </div>
-</div>
+    </div>

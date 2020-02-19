@@ -36,6 +36,18 @@ class TouristController {
             console.log("I think we fetched tourist successfully");
         });
     }
+    getOneTourist(req, res) {
+        const first_name = req.params.first_name;
+        const last_name = req.params.last_name;
+        const tourist = database_1.default.query("SELECT * FROM tourist where first_name = ? and last_name =?  ", [first_name, last_name], (err, rows, fields) => {
+            if (err) {
+                console.log("Failed to query for tourist: " + err);
+                res.sendStatus(500);
+            }
+            res.json(rows);
+            console.log("I think we fetched tourist successfully");
+        });
+    }
     create(req, res) {
         database_1.default.query("INSERT INTO tourist set ?", [req.body]);
     }

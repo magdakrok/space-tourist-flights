@@ -6,7 +6,7 @@ import { TouristService } from './../../../service/tourist.service';
 import { ConnectionsService } from './../../../service/connectionsService';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FlightService } from 'src/app/service/flight.service';
-import { connect } from 'net';
+
 
 
 
@@ -114,35 +114,37 @@ export class ConnectionsTablesComponent implements OnInit {
      else{
        this.flag=false;
      }
-    
-   }
-
-
-console.log(this.connect2.number_of_seats);
-
-
-
+    }
+    if(this.flag === false){ 
+      this.connectionsService.saveConnection(this.connections)
+           .subscribe(
+             res => {
       
-console.log(this.flag);
+               console.log(res),
+               console.log("save successed");
+               
       
-if(this.flag === false){ 
-this.connectionsService.saveConnection(this.connections)
-     .subscribe(
-       res => {
-
-         console.log(res),
-         console.log("save successed");
-
-        },
-       err => console.error(err)
-      );
-   }
-  else{
-    console.log("Jesteś zapisany na ten lot");
+              },
+             err => console.error(err)
+            );
+         }
+        else{
+          console.log("Jesteś zapisany na ten lot");
+        }
+        this.getReservation();
+      }
   }
-}
+    
+   
+  
 
-}
+
+
+  
+
+
+
+
   
 
 
