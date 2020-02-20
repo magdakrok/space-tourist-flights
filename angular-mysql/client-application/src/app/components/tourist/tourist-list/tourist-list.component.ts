@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {TouristService} from '../../../service/tourist.service';
+import { TouristService } from '../../../service/tourist.service';
 import { MessageService } from 'src/app/service/message.service';
 
 @Component({
@@ -18,29 +18,29 @@ export class TouristListComponent implements OnInit {
     this.getTourists();
   }
 
-  getTourists(){
+  getTourists() {
     this.touristsService.getTourists().subscribe(
       res => {
-        this.touristt=res;
+        this.touristt = res;
         //console.log(res)
       },
-      err =>{
+      err => {
         this.message.error("Something wrong, please try again");
-      console.log(err)
-    }
+        console.log(err)
+      }
     );
   }
-  deleteTourist(id_tourist: string){
+  deleteTourist(id_tourist: string) {
     this.touristsService.deleteTourist(id_tourist).subscribe(
       res => {
         //console.log(res);
         this.getTourists();
         this.message.success("Delete succesfull")
       },
-      err =>{
+      err => {
         this.message.error("Something wrong, please try again");
-      console.log(err)
-    }
+        console.log(err)
+      }
     )
   }
 }

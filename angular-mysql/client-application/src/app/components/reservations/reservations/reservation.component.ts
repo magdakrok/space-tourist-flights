@@ -1,9 +1,8 @@
 
-  import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { ReservationService } from 'src/app/service/reservation.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Flight } from 'src/app/models/flight';
-import { createNgModule } from '@angular/compiler/src/core';
 import { MessageService } from 'src/app/service/message.service';
 
 @Component({
@@ -14,9 +13,9 @@ import { MessageService } from 'src/app/service/message.service';
 export class ReservationComponent implements OnInit {
 
   @HostBinding('class') classes = 'row';
-  
+
   reser: any = [];
-  
+
   flight: Flight = {
     departure_date: new Date,
     arrival_date: new Date,
@@ -24,34 +23,32 @@ export class ReservationComponent implements OnInit {
     ticket_price: 0,
   };
 
-  constructor(private reservationService: ReservationService, 
-    private router: Router, 
+  constructor(private reservationService: ReservationService,
+    private router: Router,
     private activatedRoute: ActivatedRoute,
-    private message: MessageService ) { }
+    private message: MessageService) { }
 
   ngOnInit() {
     const params = this.activatedRoute.snapshot.params;
 
     console.log(params);
     if (params.departure_date && params.arrival_date) {
-    this.reservationService.getReservation(params.departure_date, params.arrival_date)
-    .subscribe(
-      res => {
-         this.reser = res;
-         //console.log(res);
+      this.reservationService.getReservation(params.departure_date, params.arrival_date)
+        .subscribe(
+          res => {
+            this.reser = res;
+            //console.log(res);
 
-         if(res == 0){
-          this.message.error("Please choose date");
-          this.router.navigate([`/`]);
-         }
-            
-        },
-        err =>{
-          this.message.error("Something wrong, please try again");
-        console.log(err)
-      }
-      )
-   }
+            if (res == 0) {
+              this.message.error("Please choose date");
+              this.router.navigate([`/`]);
+            }
+          },
+          err => {
+            this.message.error("Something wrong, please try again");
+            console.log(err)
+          })
+    }
   }
 }
 

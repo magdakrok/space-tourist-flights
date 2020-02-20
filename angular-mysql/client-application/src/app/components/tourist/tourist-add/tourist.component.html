@@ -8,31 +8,33 @@
                 <div class="form">
                     <div class="form-group">
                         Name
-                        <input type="text" name="first_name" [(ngModel)]="tourist.first_name" class="form-control"
-                            autofocus>
+                    <input type="text" name="first_name" [(ngModel)]="tourist.first_name" 
+                                class="form-control" autofocus>
                     </div>
-
                     <div class="form-group">
                         Last name
-                        <input type="text" name="last_name" [(ngModel)]="tourist.last_name" class="form-control"
-                            autofocus>
+                        <input type="text" name="last_name" [(ngModel)]="tourist.last_name" 
+                                class="form-control" autofocus>
                     </div>
                     <div class="form-group">
                         Gender
-                        <input type="text" name="gender" [(ngModel)]="tourist.gender" class="form-control" autofocus>
+                        <input type="text" name="gender" [(ngModel)]="tourist.gender" 
+                                class="form-control" autofocus>
                     </div>
                     <div class="form-group">
                         Country
-                        <input type="text" name="country" [(ngModel)]="tourist.country" class="form-control" autofocus>
+                        <input type="text" name="country" [(ngModel)]="tourist.country"
+                                 class="form-control" autofocus>
                     </div>
                     <div class="form-group">
                         Remarks
-                        <input type="text" name="remarks" [(ngModel)]="tourist.remarks" class="form-control" autofocus>
+                        <input type="text" name="remarks" [(ngModel)]="tourist.remarks" 
+                                class="form-control" autofocus>
                     </div>
                     <div class="form-group">
                         Date of birth
-                        <input type="date" name="date_of_birth" [(ngModel)]="tourist.date_of_birth" class="form-control"
-                            autofocus>
+                        <input type="date" name="date_of_birth" [(ngModel)]="tourist.date_of_birth" 
+                                class="form-control" autofocus>
                     </div>
                     <button class="btn btn-success btn-block"
                         (click)="editTourist ? updateTourist() : saveNewTourist()">

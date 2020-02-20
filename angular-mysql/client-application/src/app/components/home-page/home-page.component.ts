@@ -12,8 +12,9 @@ import { MessageService } from 'src/app/service/message.service';
 })
 export class HomePageComponent implements OnInit {
 
-  reservation: any =[];
-  connect2: any =[];
+  reservation: any = [];
+  connect2: any = [];
+  edit: boolean = false;
 
   flightt: Flight = {
     departure_date: new Date,
@@ -24,16 +25,16 @@ export class HomePageComponent implements OnInit {
 
   @HostBinding('class') classes = 'row';
 
-  edit: boolean = false;
+  
   constructor(private flight: FlightService,
-    private connectionsService: ConnectionsService, 
-    private router: Router, 
+    private connectionsService: ConnectionsService,
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private message: MessageService) { }
 
   ngOnInit() {
-   // this.getReservation();
-   // this.getFlight();
+    // this.getReservation();
+    // this.getFlight();
   }
 
   getFlight() {
@@ -42,31 +43,26 @@ export class HomePageComponent implements OnInit {
     this.flight.getFlys().subscribe(
       res => {
         this.connect2 = res;
-       // console.log(res);
+        // console.log(res);
       },
-      err =>{
+      err => {
         this.message.error("Something wrong, please try again");
-      console.log(err),
-      setTimeout(() => {
-        this.router.navigate(['/']);
-    }, 1000);
-    })
+        console.log(err),
+          setTimeout(() => {
+            this.router.navigate(['/']);
+          }, 1000);
+      })
   }
 
-
-  getReservation(){
+  getReservation() {
     this.connectionsService.getData().subscribe(
-    res3 => {
-      this.reservation = res3;
-      //console.log(res3);
-    }, 
-    err =>{
-      this.message.error("Something wrong, please try again");
-      console.log(err);
-    
-  })
+      res3 => {
+        this.reservation = res3;
+        //console.log(res3);
+      },
+      err => {
+        this.message.error("Something wrong, please try again");
+        console.log(err);
+      })
   }
-
-
-
 }

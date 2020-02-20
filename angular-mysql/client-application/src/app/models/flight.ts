@@ -1,6 +1,3 @@
-import { Time } from '@angular/common';
-
-
 export interface Flight {
     id_flight?: number;
     departure_date: Date;

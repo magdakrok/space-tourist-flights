@@ -12,16 +12,15 @@ export class TouristService {
 
   getTourists() {
     return this.http.get('http://localhost:3000/api/tourist');
-
   }
   getTourist(id_tourist: string) {
     return this.http.get(`http://localhost:3000/api/tourist/${id_tourist}`);
   }
 
-  getTouristName(first_name: string, last_name: string){
+  getTouristName(first_name: string, last_name: string) {
     return this.http.get(`http://localhost:3000/api/tourist/${first_name}/${last_name}`)
   }
-  
+
   saveTourist(tourist: Tourist) {
     return this.http.post(`http://localhost:3000/api/tourist`, tourist);
   }

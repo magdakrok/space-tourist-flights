@@ -13,28 +13,24 @@
                                 <th scope="col">Arrival date:</th>
                                 <th scope="col">Number of seats:</th>
                                 <th scope="col">Ticket price:</th>
-                                
                             </tr>
                         </thead>
-                        <tbody *ngFor='let flights of reser'> 
+                        <tbody *ngFor='let flights of reser'>
                             <tr>
-
                                 <td>{{flights.departure_date | date:'medium'}}</td>
                                 <td>{{flights.arrival_date | date:'medium'}}</td>
                                 <td>{{flights.number_of_seats}}</td>
                                 <td>{{flights.ticket_price}}</td>
-                                
                                 <td>
-                                    <button class="btn btn-success btn-block" [routerLink]="['reservation/add', flights.id_flight]">
+                                    <button class="btn btn-success btn-block"
+                                        [routerLink]="['reservation/add', flights.id_flight]">
                                         BOOK
                                     </button>
                                 </td>
-                                </tr>
+                            </tr>
                         </tbody>
                     </table>
-
                 </div>
-
             </div>
         </div>
     </div>

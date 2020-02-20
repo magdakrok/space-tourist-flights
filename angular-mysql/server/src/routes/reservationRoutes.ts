@@ -14,11 +14,6 @@ class ReservationRoutes{
     config(): void{
         
         this.router.get('/:departure_date/:arrival_date', reservationController.reservation);
-       // this.router.get('/', connectionsController.list);
-        //this.router.get('/', connectionsController.checkRes);
-        //this.router.post('/', connectionsController.createConnection);
-        //this.router.delete('/:id_tourist', connectionsController.deleteTourist);
-        //this.router.delete('/:id_flight', connectionsController.deleteFlight);
     }
 }
 

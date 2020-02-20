@@ -14,9 +14,9 @@ import { MessageService } from 'src/app/service/message.service';
 })
 export class ReservationAddComponent implements OnInit {
 
-  tourist: any =[];
-  flight: any=[];
-  show: boolean= false;
+  tourist: any = [];
+  flight: any = [];
+  show: boolean = false;
 
   connections: Connections = {
     id_connections: 0,
@@ -25,11 +25,11 @@ export class ReservationAddComponent implements OnInit {
   };
 
   constructor(private flightService: FlightService,
-     private connectionService: ConnectionsService,
-      private touristService: TouristService, 
-      private activatedRoute: ActivatedRoute,
-       private router: Router,
-       private message: MessageService) { }
+    private connectionService: ConnectionsService,
+    private touristService: TouristService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private message: MessageService) { }
 
   ngOnInit() {
 
@@ -38,63 +38,54 @@ export class ReservationAddComponent implements OnInit {
       this.flightService.getFly(params.id_flight).subscribe(
         res => {
           this.flight = res;
-         // console.log(res);
-           
+          // console.log(res);
         },
-        err =>{
+        err => {
           this.message.error("Something wrong, please try again");
-        console.log(err)
-      }
+          console.log(err)
+        }
       )
     }
-    
   }
 
-  getTouristName(first_name: string, last_name: string){
+  getTouristName(first_name: string, last_name: string) {
     this.touristService.getTouristName(first_name, last_name).subscribe(
       res => {
-      
-          this.tourist = res;
+        this.tourist = res;
         //console.log(res);
-        
-        if(res == 0){
+        if (res == 0) {
           this.message.success("You are new tourist, please sign up")
           this.router.navigate([`/tourists/add`]);
-         }
+        }
         this.toggle();
       },
-      err =>{
+      err => {
         this.message.error("Something wrong, please try again");
-      console.log(err)
-    }
+        console.log(err)
+      }
     )
   }
 
-
-  bookReservation(id_tourist: number){
+  bookReservation(id_tourist: number) {
     const params = this.activatedRoute.snapshot.params;
 
-    for(let id of this.tourist){
-      this.connections.id_tourist=id.id_tourist;
-     }
-   this.connections.id_flight=params.id_flight;
- 
-   console.log(this.connections.id_flight, this.connections.id_tourist);
+    for (let id of this.tourist) {
+      this.connections.id_tourist = id.id_tourist;
+    }
+    this.connections.id_flight = params.id_flight;
     this.connectionService.saveConnection(this.connections)
-    .subscribe(
-      res => {
-        //console.log(res),
-         this.message.success("The flight is booked");
-      },
-      err =>{
-        this.message.error("Something wrong, please try again");
-      console.log(err)
-    });
-    
-  }
+      .subscribe(
+        res => {
+          //console.log(res),
+          this.message.success("The flight is booked");
+        },
+        err => {
+          this.message.error("Something wrong, please try again");
+          console.log(err)
+        });
+      }
 
-  toggle(){
+  toggle() {
     this.show = !this.show;
   }
-
 }

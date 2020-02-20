@@ -5,17 +5,16 @@ class FlyController {
 
   public async list(req: Request, res: Response) {
 
-    await conn.query("SELECT * FROM flight ", 
+    await conn.query("SELECT * FROM flight ",
       (err, rows, fields) => {
-      if (err) {
-        console.log("Failed to query for users: " + err);
-        res.sendStatus(500);
-      }
-      res.json(rows);
-      console.log("I think we fetched users successfully");
-    });
+        if (err) {
+          console.log("Failed to query for users: " + err);
+          res.sendStatus(500);
+        }
+        res.json(rows);
+        console.log("I think we fetched users successfully");
+      });
   }
-
 
   public getOne(req: Request, res: Response) {
 
@@ -41,8 +40,7 @@ class FlyController {
         console.log("Failed to delete for flight: " + err);
         res.sendStatus(500);
       }
-
-      res.json({ message: "delete flight successfully" });
+    res.json({ message: "delete flight successfully" });
     });
   }
 
@@ -52,6 +50,4 @@ class FlyController {
     res.json({ text: 'updating' + req.params.id_flight });
   }
 }
-
-
 export const flyController = new FlyController();

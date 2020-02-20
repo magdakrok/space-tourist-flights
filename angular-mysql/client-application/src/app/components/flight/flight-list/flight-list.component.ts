@@ -22,15 +22,15 @@ export class FlightListComponent implements OnInit {
     this.flightsService.getFlys().subscribe(
       res => {
         this.flight = res;
-      //  console.log(res)
+        //  console.log(res)
       },
-      err =>{ 
+      err => {
         console.log(err);
         this.message.error("Something wrong, please try again");
       }
     );
   }
-  
+
   deleteFlight(id_flight: string) {
     this.flightsService.deleteFly(id_flight).subscribe(
       res => {
@@ -38,10 +38,10 @@ export class FlightListComponent implements OnInit {
         this.getFlights();
         this.message.success("Delete succesfull");
       },
-      err =>{
+      err => {
         this.message.error("Something wrong, please try again");
-      console.log(err)
-    }
+        console.log(err)
+      }
     )
   }
 }

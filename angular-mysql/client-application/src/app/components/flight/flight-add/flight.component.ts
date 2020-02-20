@@ -1,7 +1,6 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Flight } from '../../../models/flight';
 import { FlightService } from '../../../service/flight.service';
-
 import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from 'src/app/service/message.service';
 
@@ -17,18 +16,18 @@ export class FlightComponent implements OnInit {
 
   flight: Flight = {
     departure_date: new Date,
-   
     arrival_date: new Date,
-    
     number_of_seats: 0,
     ticket_price: 0,
   };
 
   edit: boolean = false;
-  constructor(private flightService: FlightService, 
-    private router: Router, 
+  constructor(private flightService: FlightService,
+    private router: Router,
     private activatedRoute: ActivatedRoute,
-    private message: MessageService) { }
+    private message: MessageService) { 
+
+    }
 
   ngOnInit() {
     const params = this.activatedRoute.snapshot.params;
@@ -36,33 +35,31 @@ export class FlightComponent implements OnInit {
       this.flightService.getFly(params.id_flight).subscribe(
         res => {
           this.flight == res;
-         // console.log(res),
-            this.edit = true;
+          // console.log(res),
+          this.edit = true;
         },
         err => {
           return console.error(err);
-        
         })
     }
   }
 
   saveNewFlight() {
-
     delete this.flight.departure_date;
     delete this.flight.arrival_date;
     this.flightService.saveFlight(this.flight)
       .subscribe(
         res => {
-         // console.log(res),
-            this.message.success("save succesfull"),
-           // this.flightService.getFlys();
-          this.router.navigate([`/flys`]);
+          // console.log(res),
+          this.message.success("save succesfull"),
+            // this.flightService.getFlys();
+            this.router.navigate([`/flys`]);
         },
         err => {
           console.error(err),
-          this.message.error("Something is wrong, please try again");
-  })
-}
+            this.message.error("Something is wrong, please try again");
+        })
+  }
 
 
   updateFlight() {
@@ -74,8 +71,8 @@ export class FlightComponent implements OnInit {
         this.message.success("Update succesfull")
       },
       err => {
-      console.error(err),
-      this.message.error("Something is wrong, please try again");
-})
+        console.error(err),
+          this.message.error("Something is wrong, please try again");
+      })
   }
 }

@@ -5,7 +5,6 @@
         </div>
         <div class="card col-md-9">
             <div class="card-body">
-
                 <div class="form">
                     <div class="form-group ">
                         <label for="connectt">
@@ -17,7 +16,7 @@
                                 id: {{con.id_tourist}} {{con.first_name}} {{con.last_name}}
                             </option>
                         </select>
-                        
+
                         <label for="connect2">
                             Select flight
                         </label>
@@ -25,21 +24,16 @@
                         <select id="flightt.id_flight" name="flightt.id_flight" [(ngModel)]="connections.id_flight"
                             class="form-control">
                             <option *ngFor="let con2 of flightTable" [value]="con2.id_flight">
-                                Departure: {{con2.departure_date | date:'medium'}} 
-                               
+                                Departure: {{con2.departure_date | date:'medium'}}
                             </option>
                         </select>
 
                         <select id="flightt.id_flight" name="flightt.id_flight" [(ngModel)]="connections.id_flight"
                             class="form-control">
                             <option *ngFor="let con2 of flightTable" [value]="con2.id_flight">
-                                
                                 Arrival: {{con2.arrival_date | date:'medium'}}
                             </option>
                         </select>
-
-                       
-
                         <br><br>
                         <button class="btn btn-success btn-block" (click)="saveNewTourist()">
                             Save

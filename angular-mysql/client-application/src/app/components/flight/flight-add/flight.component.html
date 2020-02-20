@@ -9,7 +9,7 @@
                     <div class="form-group">
                         Departure date
                         <input type="date" name="flight.departure_date" [(ngModel)]="flight.departure_date"
-                        placeholder="date: medium " class="form-control" autofocus>
+                            placeholder="date: medium " class="form-control" autofocus>
                     </div>
 
                     <div class="form-group">
@@ -24,14 +24,13 @@
                     </div>
                     <div class="form-group">
                         Ticket price
-                        <input type="number" name="flight.ticket_price" [(ngModel)]="flight.ticket_price" class="form-control"
-                            autofocus>
+                        <input type="number" name="flight.ticket_price" [(ngModel)]="flight.ticket_price"
+                            class="form-control" autofocus>
                     </div>
                     <button class="btn btn-success btn-block" (click)="edit ? updateFlight() : saveNewFlight()">
                         SAVE
                     </button>
                 </div>
             </div>
-        
+        </div>
     </div>
-</div>

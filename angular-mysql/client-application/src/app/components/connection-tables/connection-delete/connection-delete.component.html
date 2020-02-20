@@ -7,10 +7,8 @@
             <div class="card text-center">
                 <div class="card-body">
                     <table class="table">
-
                         <thead>
                             <tr>
-                                
                                 <th scope="col">Departure date</th>
                                 <th scope="col">Arrival date</th>
                                 <th scope="col">Number of seats</th>
@@ -25,27 +23,22 @@
                             </tr>
                         </thead>
                         <tbody *ngFor="let connects of connections, let i=index">
-                            
-                            
-                            
-                            <tr>
-                            
-                            <td>{{connects.departure_date | date:'dd-MM-yyyy' }}</td>
-                            <td>{{connects.arrival_date | date:'dd-MM-yyyy' }}</td>
-                            <td>{{connects.number_of_seats}}</td>
-                            <td>{{connects.ticket_price}}</td>
+                                <tr>
+                                <td>{{connects.departure_date | date:'dd-MM-yyyy' }}</td>
+                                <td>{{connects.arrival_date | date:'dd-MM-yyyy' }}</td>
+                                <td>{{connects.number_of_seats}}</td>
+                                <td>{{connects.ticket_price}}</td>
 
-                            <td>{{connects.first_name}}</td>
-                            <td>{{connects.last_name}}</td>
-                            <td>{{connects.gender}}</td>
-                            <td>{{connects.country}}</td>
-                            <td>{{connects.date_of_birth | date:'dd-MM-yyyy'}}</td>
-
-                            <td>
-                                <button class="btn btn-danger" (click)="deleteConnection(connects.id_connections)">
-                                    DELETE
-                                </button>
-                            </td>
+                                <td>{{connects.first_name}}</td>
+                                <td>{{connects.last_name}}</td>
+                                <td>{{connects.gender}}</td>
+                                <td>{{connects.country}}</td>
+                                <td>{{connects.date_of_birth | date:'dd-MM-yyyy'}}</td>
+                                <td>
+                                    <button class="btn btn-danger" (click)="deleteConnection(connects.id_connections)">
+                                        DELETE
+                                    </button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
