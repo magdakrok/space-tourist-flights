@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, Output, EventEmitter, RendererStyleFlags2 } from '@angular/core';
+import { Component, OnInit, HostBinding} from '@angular/core';
 import { Tourist } from './../../../models/tourist';
 import { Flight } from './../../../models/flight';
 import { Connections } from './../../../models/connections';
@@ -18,16 +18,15 @@ import { FlightService } from 'src/app/service/flight.service';
 })
 export class ConnectionsTablesComponent implements OnInit {
 
-  connect: any = [];
-  
-  connect2: any = [];
+  touristTable: any = [];
+  flightTable: any = [];
+  checkConnection: any=[];
   reservation: any =[];
   flag: boolean;
-
   firstName: string;
   lastName: string;
-
-  count: number = 0;
+  
+  
 
 
   @HostBinding('class') classes = 'row';
@@ -62,25 +61,24 @@ export class ConnectionsTablesComponent implements OnInit {
     this.getFlight();
     this.getTourist();
   this.getReservation();
-  }
+ }
 
   getTourist() {
     this.tourists.getTourists().subscribe(
       res2 => {
-       this.connect = res2;
+       this.touristTable = res2;
         
         console.log(res2);
       },
       err => {
         return console.error(err);
       })
-      
   }
 
   getFlight() {
     this.flight.getFlys().subscribe(
       res => {
-        this.connect2 = res;
+        this.flightTable = res;
         console.log(res);
       },
       err => {
@@ -101,49 +99,78 @@ export class ConnectionsTablesComponent implements OnInit {
       return console.error(err);
     })
   }
+    
    
-  saveNewTourist() {
+saveNewTourist() {
 
-  for(let id of this.reservation){
-      if(this.connections.id_tourist == id.id_tourist && this.connections.id_flight == id.id_flight) 
-       {
-       console.log(id.first_name, id.last_name, id.id_connections );
+    console.log(this.connections.id_flight, this.connections.id_tourist);
+   this.checkReserve();
+
+    for(let reserve of this.reservation){
+      if(this.connections.id_tourist == reserve.id_tourist && this.connections.id_flight == reserve.id_flight) 
+      {
+        console.log(reserve.id_connections, reserve.id_tourist, reserve.id_flight );
        this.flag=true;
         break;
-      }
-     else{
+       }
+       else{
        this.flag=false;
-     }
-    }
-    if(this.flag === false){ 
-      this.connectionsService.saveConnection(this.connections)
-           .subscribe(
-             res => {
-      
-               console.log(res),
-               console.log("save successed");
-               
-      
-              },
-             err => console.error(err)
-            );
-         }
-        else{
-          console.log("Jesteś zapisany na ten lot");
-        }
-        this.getReservation();
       }
+     }
+
+      if(this.flag === true){ 
+        console.log("You are booked  this flight");
+      }else{
+      this.connectionsService.saveConnection(this.connections)
+    .subscribe(
+       res => {
+       console.log("save successed");
+      },
+        err => console.error(err)
+      );
+    }
   }
+
+checkReserve(){
+    const id_tourist = this.connections.id_tourist;
+     const id_flight = this.connections.id_flight;
+     this.connectionsService.checkReservation(id_tourist, id_flight)
+          .subscribe(
+            res8 => {
+              this.checkConnection = res8;
+              //console.log(res8);
+             }, 
+             err => {
+               return console.error(err);
+             });
+            
+            }  
+          }
+          
+            
+          
+            
+   
+  
+     
+      
+  
+  
+
+ 
+    
+      
+      
+  
+          
+
+        
+        
+ 
+
     
    
   
-
-
-
-  
-
-
-
 
   
 

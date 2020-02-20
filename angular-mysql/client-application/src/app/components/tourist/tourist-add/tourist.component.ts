@@ -31,9 +31,11 @@ export class TouristAddComponent implements OnInit {
       this.touristService.getTourist(params.id_tourist).subscribe(
         res => {
           this.edit = true,
-            this.tourist === res;
+            this.tourist == res;
           console.log(res);
+         
           // this.edit = true;
+           
         },
         err => {
           return console.error(err);
@@ -50,8 +52,10 @@ export class TouristAddComponent implements OnInit {
         res => {
           console.log(res),
             console.log("save successed"),
-            this.touristService.getTourists();
-          this.router.navigate([`/tourists`]);
+           // this.touristService.getTourists();
+            
+              this.router.navigate(['home']);
+              
         },
         err => console.error(err)
       );

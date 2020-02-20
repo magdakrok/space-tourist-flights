@@ -19,6 +19,11 @@ const routes: Routes = [
   },
 
   {
+    path: "home",
+    component: HomePageComponent
+  },
+
+  {
     path: "reservation/:departure_date/:arrival_date",
     component: ReservationComponent
   },
@@ -47,6 +52,12 @@ const routes: Routes = [
    path: 'tourists/add',
    component: TouristAddComponent
   },
+
+  {
+    path: 'tourists/add/:id_flight',
+    component: TouristAddComponent
+   },
+  
   {
     path: 'tourists/editTourist/:id_tourist',
     component: TouristAddComponent

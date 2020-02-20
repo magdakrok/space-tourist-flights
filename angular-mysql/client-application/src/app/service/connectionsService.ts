@@ -21,8 +21,14 @@ export class ConnectionsService {
   
   }
  
- 
+   checkReservation(id_tourist: number, id_flight: number ){
+     return this.http.get(`http://localhost:3000/api/connection/${id_tourist}/${id_flight}`)
+   }
   
+   checkSeats(id_flight: number ){
+    return this.http.get(`http://localhost:3000/api/connection/${id_flight}`)
+  }
+ 
 
   
   deleteData(id_connections: string){

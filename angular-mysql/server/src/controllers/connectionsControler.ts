@@ -7,11 +7,11 @@ class ConnectionController {
 
     await conn.query("SELECT *  FROM flight, tourist, connections  where connections.id_tourist = tourist.id_tourist and connections.id_flight = flight.id_flight ", (err, rows, fields) => {
       if (err) {
-        console.log("Failed to query for users: " + err);
+        console.log("Failed to query: " + err);
         res.sendStatus(500);
       }
       res.json(rows);
-      console.log("I think we fetched users successfully");
+      console.log("successfully");
       console.log(rows);
     });
   }
@@ -20,11 +20,11 @@ class ConnectionController {
     const id_flight = req.params.id_flight;
     await conn.query("SELECT * FROM tourist, connections, flight where connections.id_flight = flight.id_flight AND connections.id_tourist = tourist.id_tourist and flight.id_flight = ?", [id_flight], (err, rows, fields) => {
       if (err) {
-        console.log("Failed to query for users: " + err);
+        console.log("Failed to query : " + err);
         res.sendStatus(500);
       }
       res.json(rows);
-      console.log("I think we fetched users successfully");
+      console.log("successfully");
     });
   }
 
@@ -65,11 +65,11 @@ class ConnectionController {
      
      conn.query("INSERT INTO connections set ? ", [req.body],(err, rows, fields) => {
       if (err) {
-        console.log("Failed to query for users: " + err);
+        console.log("Failed to query: " + err);
        // res.sendStatus(500);
       }
       res.json(rows);
-      console.log("I think we fetched users successfully");
+      console.log("successfully");
      // console.log(rows);
       return rows;
     });
@@ -79,31 +79,34 @@ class ConnectionController {
 
  
 
- async checkRes(id_flight: string) {
+ public checkRes(req: Request, res: Response) {
     //const id_flight = req.params.id_flight;
-     await conn.query("SELECT COUNT(id_flight) FROM connections where id_flight =?", [id_flight],(err, rows, fields) => {
+    const id_tourist = req.params.id_tourist;
+    const id_flight = req.params.id_flight;
+      conn.query("SELECT * FROM connections where id_tourist = ? and id_flight = ?", [id_tourist, id_flight],(err, rows, fields) => {
       if (err) {
-        console.log("Failed to query for users: " + err);
+        console.log("Failed to query" + err);
        // res.sendStatus(500);
       }
-      //res.json(rows);
-      console.log("I think we fetched users successfully");
+      res.json(rows);
+      console.log("successfully");
       console.log(rows);
-      return rows;
+      
     });
   }
     
   
-     async listNumberOfSeats(id_flight: number) {
-      //const id_flight = req.params.id_flight;
-      await conn.query("SELECT number_of_seats FROM flight where id_flight = ?", [id_flight],(err, rows, fields) => {
+    public async listNumberOfSeats(req: Request, res: Response) {
+      const id_flight = req.params.id_flight;
+      console.log(id_flight);
+     await conn.query("SELECT COUNT(id_flight) FROM connections where id_flight = ?", [id_flight],(err, rows, fields) => {
         if (err) {
-          console.log("Failed to query for users: " + err);
+          console.log("Failed to query: " + err);
          // res.sendStatus(500);
         }
-        //res.json(rows);
-        console.log("I think we fetched users successfully");
-        console.log(rows);
+        res.json(rows);
+        console.log("successfully");
+        
       });
     }
     

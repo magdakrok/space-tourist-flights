@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FlightService } from 'src/app/service/flight.service';
 import { TouristService } from 'src/app/service/tourist.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ConnectionsService } from 'src/app/service/connectionsService';
+import { Connections } from 'src/app/models/connections';
+import { Tourist } from 'src/app/models/tourist';
 
 @Component({
   selector: 'app-reservation-add',
@@ -14,7 +17,13 @@ export class ReservationAddComponent implements OnInit {
   flight: any=[];
   show: boolean= false;
 
-  constructor(private flightService: FlightService, private touristService: TouristService, private activatedRoute: ActivatedRoute) { }
+  connections: Connections = {
+    id_connections: 0,
+    id_tourist: 0,
+    id_flight: 0,
+  };
+
+  constructor(private flightService: FlightService, private connectionService: ConnectionsService, private touristService: TouristService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
 
@@ -41,12 +50,39 @@ export class ReservationAddComponent implements OnInit {
           this.tourist = res;
         console.log(res);
         // this.edit = true;
+        if(res == 0){
+          this.router.navigate([`/tourists/add`]);
+         }
         this.toggle();
       },
       err => {
         return console.error(err);
       }
     )
+  }
+
+
+  bookReservation(id_tourist: number){
+    const params = this.activatedRoute.snapshot.params;
+
+    for(let id of this.tourist){
+      this.connections.id_tourist=id.id_tourist;
+     }
+   this.connections.id_flight=params.id_flight;
+ 
+   console.log(this.connections.id_flight, this.connections.id_tourist);
+    this.connectionService.saveConnection(this.connections)
+    .subscribe(
+      res => {
+ 
+         console.log(res),
+         console.log("save successed");
+          
+ 
+        },
+      err => console.error(err)
+       );
+    
   }
 
   toggle(){

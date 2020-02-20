@@ -1,10 +1,8 @@
-
 <div class="container d-flex justify-content-center align-items-center col-md-10 mt-5">
 
-    
-    <div class="row justify-content-md-center col-md-10">
+    <div class="row justify-content-md-center  col-sm-12 mt-5 mb-10">
         <div class=" col-md-10 card-header bg-dark text-white d-flex ">
-            Give name and surname 
+            Give name and surname
         </div>
         <div class=" card col-md-10 ">
             <div class="card-body">
@@ -20,8 +18,9 @@
                         <input type="text" name="last_name" [(ngModel)]="tourist.last_name" class="form-control"
                             autofocus>
                     </div>
-                    
-                    <button class="btn btn-success btn-block"  (click) ="getTouristName(tourist.first_name, tourist.last_name)">
+
+                    <button class="btn btn-success btn-block"
+                        (click)="getTouristName(tourist.first_name, tourist.last_name)">
                         SAVE
                     </button>
                 </div>
@@ -29,46 +28,46 @@
         </div>
 
 
-<section *ngIf="show">
-    <div class="row justify-content-md-center  col-sm-12 mt-5 mb-10">
-        <div class=" col-sm-12 card-header bg-dark text-white d-flex ">
-            Your data
-        </div>
-        <div   class="col-sm-12">
-            <div class="card text-left">
-              <div class="card-body">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">First name</th>
-                      <th scope="col">Last name</th>
-                      <th scope="col">Gender</th>
-                      <th scope="col">Country</th>
-                      <th scope="col">Remarks:</th>
-                      <th scope="col">Date of birth:</th>
-                      
-                    </tr>
-                  </thead>
-                  <tbody *ngFor='let tourists of tourist'>
-                    <tr>
-                      <td>{{tourists.first_name}}</td>
-                      <td>{{tourists.last_name}}</td>
-                      <td>{{tourists.gender}}</td>
-                      <td>{{tourists.country}}</td>
-                      <td>{{tourists.remarks}}</td>
-                      <td>{{tourists.date_of_birth | date  }}</td>
-                      
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+        <section *ngIf="show">
+            <div class="row justify-content-md-center  col-sm-12 mt-5 mb-10">
+                <div class=" col-sm-12 card-header bg-dark text-white d-flex ">
+                    Your data
+                </div>
+                <div class="col-sm-12">
+                    <div class="card text-left">
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">First name</th>
+                                        <th scope="col">Last name</th>
+                                        <th scope="col">Gender</th>
+                                        <th scope="col">Country</th>
+                                        <th scope="col">Remarks:</th>
+                                        <th scope="col">Date of birth:</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor='let tourists of tourist'>
+                                    <tr>
+                                        <td>{{tourists.first_name}}</td>
+                                        <td>{{tourists.last_name}}</td>
+                                        <td>{{tourists.gender}}</td>
+                                        <td>{{tourists.country}}</td>
+                                        <td>{{tourists.remarks}}</td>
+                                        <td>{{tourists.date_of_birth | date  }}</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-          </div>
-          
-        </div>
-        
+
         </section>
-        
+
     </div>
 </div>
 <div class="row justify-content-md-center  col-sm-12 mt-5 mb-10">
@@ -85,7 +84,7 @@
                             <th scope="col">Arrival date:</th>
                             <th scope="col">Number of seats:</th>
                             <th scope="col">Ticket price:</th>
-                            
+
                         </tr>
                     </thead>
                     <tbody *ngFor='let flights of flight'>
@@ -96,7 +95,7 @@
                             <td>{{flights.number_of_seats}}</td>
                             <td>{{flights.ticket_price}}</td>
 
-                           
+
 
                         </tr>
                     </tbody>
@@ -107,3 +106,9 @@
         </div>
     </div>
 </div>
+
+
+<button class="btn btn-success btn-block"
+(click)="bookReservation()">
+SAVE
+</button>
