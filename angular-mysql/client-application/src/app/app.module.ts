@@ -18,6 +18,9 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { ReservationComponent } from './components/reservations/reservations/reservation.component';
 import { ReservationService } from './service/reservation.service';
 import { ReservationAddComponent } from './components/reservations/reservation-add/reservation-add.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations:[
@@ -32,12 +35,16 @@ import { ReservationAddComponent } from './components/reservations/reservation-a
     HomePageComponent,
     ReservationComponent,
     ReservationAddComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    
   ],
   providers: [
     FlightService,

@@ -3,6 +3,7 @@ import { Tourist } from '../../../models/tourist';
 import { TouristService } from '../../../service/tourist.service';
 
 import { Router, ActivatedRoute } from '@angular/router';
+import { MessageService } from 'src/app/service/message.service';
 
 @Component({
   selector: 'app-tourist',
@@ -23,7 +24,10 @@ export class TouristAddComponent implements OnInit {
   };
 
   edit: boolean = false;
-  constructor(private touristService: TouristService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private touristService: TouristService, 
+    private router: Router, 
+    private activatedRoute: ActivatedRoute,
+    private message: MessageService) { }
 
   ngOnInit() {
     const params = this.activatedRoute.snapshot.params;
@@ -32,32 +36,30 @@ export class TouristAddComponent implements OnInit {
         res => {
           this.edit = true,
             this.tourist == res;
-          console.log(res);
-         
-          // this.edit = true;
-           
-        },
-        err => {
-          return console.error(err);
-        }
+          //console.log(res);
+         },
+        err =>{
+          this.message.error("Something wrong, please try again");
+        console.log(err)
+      }
       )
     }
   }
 
   saveNewTourist() {
-
-
-    this.touristService.saveTourist(this.tourist)
+  this.touristService.saveTourist(this.tourist)
       .subscribe(
         res => {
-          console.log(res),
-            console.log("save successed"),
-           // this.touristService.getTourists();
+         console.log(res),
+            this.message.success("save succesfull")
+           this.touristService.getTourists();
             
-              this.router.navigate(['home']);
-              
-        },
-        err => console.error(err)
+              this.router.navigate(['/']);
+          },
+        err =>{
+          this.message.error("Something wrong, please try again");
+        console.log(err)
+      }
       );
   }
 
@@ -65,9 +67,12 @@ export class TouristAddComponent implements OnInit {
 
     this.touristService.updateTourist(this.tourist.id_tourist, this.tourist).subscribe(
       res => {
-        console.log(res);
+        //console.log(res);
       },
-      err => console.log(err)
+      err =>{
+        this.message.error("Something wrong, please try again");
+      console.log(err)
+    }
 
     )
   }

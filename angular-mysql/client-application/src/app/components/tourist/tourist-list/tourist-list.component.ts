@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TouristService} from '../../../service/tourist.service';
+import { MessageService } from 'src/app/service/message.service';
 
 @Component({
   selector: 'app-tourist-list',
@@ -10,7 +11,8 @@ export class TouristListComponent implements OnInit {
 
   touristt: any = [];
   connection: any[];
-  constructor(private touristsService: TouristService) { }
+  constructor(private touristsService: TouristService,
+    private message: MessageService) { }
 
   ngOnInit() {
     this.getTourists();
@@ -20,18 +22,25 @@ export class TouristListComponent implements OnInit {
     this.touristsService.getTourists().subscribe(
       res => {
         this.touristt=res;
-        console.log(res)
+        //console.log(res)
       },
-        err => console.log(err)
+      err =>{
+        this.message.error("Something wrong, please try again");
+      console.log(err)
+    }
     );
   }
   deleteTourist(id_tourist: string){
     this.touristsService.deleteTourist(id_tourist).subscribe(
       res => {
-        console.log(res);
+        //console.log(res);
         this.getTourists();
+        this.message.success("Delete succesfull")
       },
-      err => console.log(err)
+      err =>{
+        this.message.error("Something wrong, please try again");
+      console.log(err)
+    }
     )
   }
 }

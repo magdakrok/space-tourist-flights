@@ -3,6 +3,7 @@ import {TouristService} from './../../../service/tourist.service';
 import { ConnectionsService } from './../../../service/connectionsService';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FlightService } from 'src/app/service/flight.service';
+import { MessageService } from 'src/app/service/message.service';
 
 @Component({
   selector: 'app-connection-delete',
@@ -16,7 +17,12 @@ export class ConnectionDeleteComponent implements OnInit {
 
   connections: any = [];
     
-  constructor(private tourists: TouristService, private flight: FlightService, private connectionsService: ConnectionsService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private tourists: TouristService, 
+    private flight: FlightService, 
+    private connectionsService: ConnectionsService, 
+    private router: Router, 
+    private activatedRoute: ActivatedRoute,
+    private message: MessageService) { }
 
   
   ngOnInit() {
@@ -27,10 +33,13 @@ export class ConnectionDeleteComponent implements OnInit {
     this.connectionsService.getData().subscribe(
       res => {
         this.connections=res;
-        console.log(res)
+        //console.log(res)
       },
         
-      err => console.log(err)
+      err => {console.log(err);
+      this.message.error("Something wrong, please try again");
+      }
+
     );
   }
 
@@ -38,11 +47,13 @@ export class ConnectionDeleteComponent implements OnInit {
     
       this.connectionsService.deleteData(id_connection).subscribe(
         res => {
-          console.log(res);
-          console.log("delete");
+          //console.log(res);
+          this.message.success("Delete succesfull");
           this.getDataConnection();
         },
-        err => console.log(err)
+        err =>{ console.log(err),
+          this.message.error("Something wrong, please try again");
+        }
       )
     }
 }

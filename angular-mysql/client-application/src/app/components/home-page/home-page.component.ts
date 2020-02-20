@@ -3,6 +3,7 @@ import { ConnectionsService } from 'src/app/service/connectionsService';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlightService } from 'src/app/service/flight.service';
 import { Flight } from 'src/app/models/flight';
+import { MessageService } from 'src/app/service/message.service';
 
 @Component({
   selector: 'app-home-page',
@@ -24,7 +25,11 @@ export class HomePageComponent implements OnInit {
   @HostBinding('class') classes = 'row';
 
   edit: boolean = false;
-  constructor(private flight: FlightService,private connectionsService: ConnectionsService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private flight: FlightService,
+    private connectionsService: ConnectionsService, 
+    private router: Router, 
+    private activatedRoute: ActivatedRoute,
+    private message: MessageService) { }
 
   ngOnInit() {
    // this.getReservation();
@@ -37,11 +42,15 @@ export class HomePageComponent implements OnInit {
     this.flight.getFlys().subscribe(
       res => {
         this.connect2 = res;
-        console.log(res);
+       // console.log(res);
       },
-      err => {
-        return console.error(err);
-      })
+      err =>{
+        this.message.error("Something wrong, please try again");
+      console.log(err),
+      setTimeout(() => {
+        this.router.navigate(['/']);
+    }, 1000);
+    })
   }
 
 
@@ -49,11 +58,13 @@ export class HomePageComponent implements OnInit {
     this.connectionsService.getData().subscribe(
     res3 => {
       this.reservation = res3;
-      console.log(res3);
+      //console.log(res3);
     }, 
-    err => {
-      return console.error(err);
-    })
+    err =>{
+      this.message.error("Something wrong, please try again");
+      console.log(err);
+    
+  })
   }
 
 

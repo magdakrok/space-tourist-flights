@@ -4,6 +4,7 @@ import { ReservationService } from 'src/app/service/reservation.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Flight } from 'src/app/models/flight';
 import { createNgModule } from '@angular/compiler/src/core';
+import { MessageService } from 'src/app/service/message.service';
 
 @Component({
   selector: 'app-reservation',
@@ -18,13 +19,15 @@ export class ReservationComponent implements OnInit {
   
   flight: Flight = {
     departure_date: new Date,
-   
     arrival_date: new Date,
-    
     number_of_seats: 0,
     ticket_price: 0,
   };
-  constructor(private reservationService: ReservationService, private router: Router, private activatedRoute: ActivatedRoute ) { }
+
+  constructor(private reservationService: ReservationService, 
+    private router: Router, 
+    private activatedRoute: ActivatedRoute,
+    private message: MessageService ) { }
 
   ngOnInit() {
     const params = this.activatedRoute.snapshot.params;
@@ -35,26 +38,21 @@ export class ReservationComponent implements OnInit {
     .subscribe(
       res => {
          this.reser = res;
-         console.log(res);
+         //console.log(res);
 
          if(res == 0){
+          this.message.error("Please choose date");
           this.router.navigate([`/`]);
          }
             
         },
-        err => {
-          return console.error(err);
-        }
+        err =>{
+          this.message.error("Something wrong, please try again");
+        console.log(err)
+      }
       )
    }
-
-   //console.log(this.reser);
-    
   }
-
-  
-
- 
 }
 
 

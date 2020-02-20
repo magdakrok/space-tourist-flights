@@ -6,6 +6,7 @@ import { TouristService } from './../../../service/tourist.service';
 import { ConnectionsService } from './../../../service/connectionsService';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FlightService } from 'src/app/service/flight.service';
+import { MessageService } from 'src/app/service/message.service';
 
 
 
@@ -55,7 +56,12 @@ export class ConnectionsTablesComponent implements OnInit {
 
 
   edit: boolean = false;
-  constructor( private tourists: TouristService, private flight: FlightService, private connectionsService: ConnectionsService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor( private tourists: TouristService, 
+    private flight: FlightService, 
+    private connectionsService: ConnectionsService,
+    private router: Router, 
+    private activatedRoute: ActivatedRoute,
+    private message: MessageService) { }
 
   ngOnInit() {
     this.getFlight();
@@ -68,7 +74,7 @@ export class ConnectionsTablesComponent implements OnInit {
       res2 => {
        this.touristTable = res2;
         
-        console.log(res2);
+        //console.log(res2);
       },
       err => {
         return console.error(err);
@@ -79,7 +85,7 @@ export class ConnectionsTablesComponent implements OnInit {
     this.flight.getFlys().subscribe(
       res => {
         this.flightTable = res;
-        console.log(res);
+        //console.log(res);
       },
       err => {
         return console.error(err);
@@ -93,7 +99,7 @@ export class ConnectionsTablesComponent implements OnInit {
     this.connectionsService.getData().subscribe(
     res3 => {
       this.reservation = res3;
-      console.log(res3);
+      //console.log(res3);
     }, 
     err => {
       return console.error(err);
@@ -103,13 +109,13 @@ export class ConnectionsTablesComponent implements OnInit {
    
 saveNewTourist() {
 
-    console.log(this.connections.id_flight, this.connections.id_tourist);
+    //console.log(this.connections.id_flight, this.connections.id_tourist);
    this.checkReserve();
 
     for(let reserve of this.reservation){
       if(this.connections.id_tourist == reserve.id_tourist && this.connections.id_flight == reserve.id_flight) 
       {
-        console.log(reserve.id_connections, reserve.id_tourist, reserve.id_flight );
+        //console.log(reserve.id_connections, reserve.id_tourist, reserve.id_flight );
        this.flag=true;
         break;
        }
@@ -119,15 +125,18 @@ saveNewTourist() {
      }
 
       if(this.flag === true){ 
-        console.log("You are booked  this flight");
+        this.message.error("You are booked  this flight. please check another flight");
       }else{
       this.connectionsService.saveConnection(this.connections)
     .subscribe(
        res => {
-       console.log("save successed");
+        this.message.success("save succesfull");
+       
       },
-        err => console.error(err)
-      );
+        err => {
+          console.error(err);
+          this.message.error("Something wrong, please try again");
+        });
     }
   }
 

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConnectionsService } from 'src/app/service/connectionsService';
 import { Connections } from 'src/app/models/connections';
 import { Tourist } from 'src/app/models/tourist';
+import { MessageService } from 'src/app/service/message.service';
 
 @Component({
   selector: 'app-reservation-add',
@@ -23,7 +24,12 @@ export class ReservationAddComponent implements OnInit {
     id_flight: 0,
   };
 
-  constructor(private flightService: FlightService, private connectionService: ConnectionsService, private touristService: TouristService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private flightService: FlightService,
+     private connectionService: ConnectionsService,
+      private touristService: TouristService, 
+      private activatedRoute: ActivatedRoute,
+       private router: Router,
+       private message: MessageService) { }
 
   ngOnInit() {
 
@@ -32,12 +38,13 @@ export class ReservationAddComponent implements OnInit {
       this.flightService.getFly(params.id_flight).subscribe(
         res => {
           this.flight = res;
-          console.log(res);
+         // console.log(res);
            
         },
-        err => {
-          return console.error(err);
-        }
+        err =>{
+          this.message.error("Something wrong, please try again");
+        console.log(err)
+      }
       )
     }
     
@@ -46,18 +53,20 @@ export class ReservationAddComponent implements OnInit {
   getTouristName(first_name: string, last_name: string){
     this.touristService.getTouristName(first_name, last_name).subscribe(
       res => {
-       // this.edit = true,
+      
           this.tourist = res;
-        console.log(res);
-        // this.edit = true;
+        //console.log(res);
+        
         if(res == 0){
+          this.message.success("You are new tourist, please sign up")
           this.router.navigate([`/tourists/add`]);
          }
         this.toggle();
       },
-      err => {
-        return console.error(err);
-      }
+      err =>{
+        this.message.error("Something wrong, please try again");
+      console.log(err)
+    }
     )
   }
 
@@ -74,14 +83,13 @@ export class ReservationAddComponent implements OnInit {
     this.connectionService.saveConnection(this.connections)
     .subscribe(
       res => {
- 
-         console.log(res),
-         console.log("save successed");
-          
- 
-        },
-      err => console.error(err)
-       );
+        //console.log(res),
+         this.message.success("The flight is booked");
+      },
+      err =>{
+        this.message.error("Something wrong, please try again");
+      console.log(err)
+    });
     
   }
 

@@ -3,6 +3,7 @@ import { Flight } from '../../../models/flight';
 import { FlightService } from '../../../service/flight.service';
 
 import { Router, ActivatedRoute } from '@angular/router';
+import { MessageService } from 'src/app/service/message.service';
 
 
 @Component({
@@ -24,7 +25,10 @@ export class FlightComponent implements OnInit {
   };
 
   edit: boolean = false;
-  constructor(private flightService: FlightService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private flightService: FlightService, 
+    private router: Router, 
+    private activatedRoute: ActivatedRoute,
+    private message: MessageService) { }
 
   ngOnInit() {
     const params = this.activatedRoute.snapshot.params;
@@ -32,13 +36,13 @@ export class FlightComponent implements OnInit {
       this.flightService.getFly(params.id_flight).subscribe(
         res => {
           this.flight == res;
-          console.log(res),
+         // console.log(res),
             this.edit = true;
         },
         err => {
           return console.error(err);
-        }
-      )
+        
+        })
     }
   }
 
@@ -49,24 +53,29 @@ export class FlightComponent implements OnInit {
     this.flightService.saveFlight(this.flight)
       .subscribe(
         res => {
-          console.log(res),
-            console.log("save successed"),
-            this.flightService.getFlys();
+         // console.log(res),
+            this.message.success("save succesfull"),
+           // this.flightService.getFlys();
           this.router.navigate([`/flys`]);
         },
-        err => console.error(err)
-      );
-  }
+        err => {
+          console.error(err),
+          this.message.error("Something is wrong, please try again");
+  })
+}
+
 
   updateFlight() {
     delete this.flight.departure_date;
     delete this.flight.arrival_date;
     this.flightService.updateFlight(this.flight.id_flight, this.flight).subscribe(
       res => {
-        console.log(res);
+        //console.log(res);
+        this.message.success("Update succesfull")
       },
-      err => console.log(err)
-
-    )
+      err => {
+      console.error(err),
+      this.message.error("Something is wrong, please try again");
+})
   }
 }
