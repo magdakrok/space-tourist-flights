@@ -17,7 +17,6 @@ class ReservationController {
         return __awaiter(this, void 0, void 0, function* () {
             const departure_date = req.params.departure_date;
             const arrival_date = req.params.arrival_date;
-            console.log(departure_date, arrival_date);
             yield database_1.default.query("select * from flight where departure_date > ? and departure_date  < ? and arrival_date < ? and arrival_date > ?", [departure_date, arrival_date, arrival_date, departure_date], (err, rows, fields) => {
                 if (err) {
                     console.log("Failed to query for users: " + err);

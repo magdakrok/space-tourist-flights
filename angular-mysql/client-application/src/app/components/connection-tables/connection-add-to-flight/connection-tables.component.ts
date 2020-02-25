@@ -7,6 +7,9 @@ import { ConnectionsService } from './../../../service/connectionsService';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FlightService } from 'src/app/service/flight.service';
 import { MessageService } from 'src/app/service/message.service';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+
+
 
 @Component({
   selector: 'app-connection-tables',
@@ -24,6 +27,8 @@ export class ConnectionsTablesComponent implements OnInit {
   firstName: string;
   lastName: string;
   edit: boolean = false;
+
+  faSpinner = faSpinner;
 
  @HostBinding('class') classes = 'row';
 
@@ -54,15 +59,18 @@ export class ConnectionsTablesComponent implements OnInit {
     private connectionsService: ConnectionsService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private message: MessageService) {
+    private message: MessageService,
+    ) {
 
      }
 
   ngOnInit() {
     this.getFlight();
     this.getTourist();
-    this.getReservation();
+  //  this.getReservation();
   }
+
+  
 
   getTourist() {
     this.tourists.getTourists().subscribe(
@@ -98,47 +106,67 @@ export class ConnectionsTablesComponent implements OnInit {
   }
 
 
-  saveNewTourist() {
-    this.checkReserve();
-
-    for (let reserve of this.reservation) {
-      if (this.connections.id_tourist == reserve.id_tourist && this.connections.id_flight == reserve.id_flight) {
-        this.flag = true;
-        break;
-      }
-      else {
-        this.flag = false;
-      }
-    }
-
-    if (this.flag === true) {
-      this.message.error("You are booked  this flight. please check another flight");
-    } else {
-      this.connectionsService.saveConnection(this.connections)
-        .subscribe(
-          res => {
-            this.message.success("save succesfull");
-          },
-          err => {
-            console.error(err);
-            this.message.error("Something wrong, please try again");
-          });
-    }
-  }
-
-  checkReserve() {
+   saveNewTourist() {
     const id_tourist = this.connections.id_tourist;
     const id_flight = this.connections.id_flight;
-    this.connectionsService.checkReservation(id_tourist, id_flight)
-      .subscribe(
-        res8 => {
-          this.checkConnection = res8;
-          //console.log(res8);
-        },
-        err => {
-          return console.error(err);
-        });
-  }
+    this.connectionsService.checkReservation(id_tourist, id_flight).subscribe(
+      res8 => {
+        this.checkConnection = res8;
+        console.log(res8);
+      },
+      err => {
+        return console.error(err);
+      });
+     
+    
+    setTimeout(() => {
+
+      for (let reserve of this.checkConnection) {
+        if (this.connections.id_tourist == reserve.id_tourist && this.connections.id_flight == reserve.id_flight) {
+          this.flag = true;
+         // break;
+        }
+        else {
+          this.flag = false;
+        }
+      }
+
+       console.log(this.checkConnection);
+       console.log(this.flag);
+
+
+       if (this.flag === true) {
+        this.message.error("You are booked  this flight. please check another flight");
+      } else {
+        this.connectionsService.saveConnection(this.connections)
+          .subscribe(
+            res => {
+              this.message.success("save succesfull");
+            },
+            err => {
+              console.error(err);
+              this.message.error("Something wrong, please try again");
+            });
+      }
+  
+  
+      
+          
+
+           console.log(this.flag);
+        
+             }, 5000);
+            
+     this.flag = undefined;
+      
+  
+    }
+  
+
+
+  
+
+  
 }
 
 

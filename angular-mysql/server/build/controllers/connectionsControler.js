@@ -60,11 +60,6 @@ class ConnectionController {
         });
     }
     createConnection(req, res) {
-        //const id_flight = req.params.id_flight;
-        ////  const checkNumberOfSeats = this.checkRes(id_flight);
-        // const numberOfSeats = conn.query("SELECT number_of_seats FROM flight where id_flight = ?", [id_flight]);
-        //console.log(checkNumberOfSeats,numberOfSeats);
-        //if(checkNumberOfSeats <= numberOfSeats ){
         database_1.default.query("INSERT INTO connections set ? ", [req.body], (err, rows, fields) => {
             if (err) {
                 console.log("Failed to query: " + err);

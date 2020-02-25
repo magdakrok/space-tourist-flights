@@ -67,9 +67,7 @@ class TouristController {
         res.json({ text: 'updating' + req.params.id_tourist });
     }
     updateTouristFly(req, res) {
-        //const id_tourist = req.params.id_tourist;
         const id_connecions = req.params.id_connecions;
-        //const id_flight = req.params.id_flight;
         database_1.default.query("INSERT INTO connections set ?", [req.body, id_connecions]);
         res.json({ text: 'updating' + req.params.id_connecions });
     }
