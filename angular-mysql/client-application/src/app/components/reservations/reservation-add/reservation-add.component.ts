@@ -14,6 +14,7 @@ import { MessageService } from 'src/app/service/message.service';
 })
 export class ReservationAddComponent implements OnInit {
 
+  tourist_id: any = [];
   tourist: any = [];
   flight: any = [];
   show: boolean = false;
@@ -37,16 +38,33 @@ export class ReservationAddComponent implements OnInit {
     departure_date: Date;
     arrival_date: Date;
     id_flight: number;
+    id_tourist: number;
 
   ngOnInit() {
 
     const params = this.activatedRoute.snapshot.params;
     this.id_flight = params.id_flight;
+    this.id_tourist = params.id_tourist;
     if (params.id_flight) {
       this.flightService.getFly(params.id_flight).subscribe(
         res => {
           this.flight = res;
           // console.log(res);
+          
+        },
+        err => {
+          this.message.error("Something wrong, please try again");
+          console.log(err)
+        }
+      )
+    }
+
+    if(params.id_tourist){
+      this.touristService.getTourist(params.id_tourist).subscribe(
+        res => {
+          this.tourist = res;
+          // console.log(res);
+          this.toggle();
         },
         err => {
           this.message.error("Something wrong, please try again");
@@ -87,7 +105,7 @@ export class ReservationAddComponent implements OnInit {
       .subscribe(
         res => {
           //console.log(res),
-          this.message.success("The flight is booked");
+          this.message.success("The flight is booking");
         },
         err => {
           this.message.error("Something wrong, please try again");
