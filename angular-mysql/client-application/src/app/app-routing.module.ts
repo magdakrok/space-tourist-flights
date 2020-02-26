@@ -29,7 +29,7 @@ const routes: Routes = [
   },
 
   {
-    path: "reservation/:departure_date/:arrival_date/reservation/add/:id_flight",
+    path: "reservation/:departure_date/:arrival_date/add/:id_flight",
     component: ReservationAddComponent
   },
   {
@@ -53,6 +53,7 @@ const routes: Routes = [
    component: TouristAddComponent
   },
 
+ 
   {
     path: 'tourists/add/:id_flight',
     component: TouristAddComponent

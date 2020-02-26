@@ -28,7 +28,7 @@ export class ConnectionsTablesComponent implements OnInit {
   lastName: string;
   edit: boolean = false;
 
-  faSpinner = faSpinner;
+  public loading = false;
 
  @HostBinding('class') classes = 'row';
 
@@ -107,6 +107,7 @@ export class ConnectionsTablesComponent implements OnInit {
 
 
    saveNewTourist() {
+    this.loading = true;
     const id_tourist = this.connections.id_tourist;
     const id_flight = this.connections.id_flight;
     this.connectionsService.checkReservation(id_tourist, id_flight).subscribe(
@@ -120,7 +121,7 @@ export class ConnectionsTablesComponent implements OnInit {
      
     
     setTimeout(() => {
-
+     
       for (let reserve of this.checkConnection) {
         if (this.connections.id_tourist == reserve.id_tourist && this.connections.id_flight == reserve.id_flight) {
           this.flag = true;
@@ -136,8 +137,10 @@ export class ConnectionsTablesComponent implements OnInit {
 
 
        if (this.flag === true) {
+       this.loading = false;
         this.message.error("You are booked  this flight. please check another flight");
       } else {
+       this.loading = false;
         this.connectionsService.saveConnection(this.connections)
           .subscribe(
             res => {
@@ -148,15 +151,10 @@ export class ConnectionsTablesComponent implements OnInit {
               this.message.error("Something wrong, please try again");
             });
       }
-  
-  
-      
-          
-
-           console.log(this.flag);
+     console.log(this.flag);
         
              }, 5000);
-            
+             
      this.flag = undefined;
       
   

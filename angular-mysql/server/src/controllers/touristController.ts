@@ -43,8 +43,20 @@ public getOne(req: Request, res: Response) {
   }
 
   public create(req: Request, res: Response) {
-    conn.query("INSERT INTO tourist set ?", [req.body]);
+    conn.query("INSERT INTO tourist set ?", [req.body], (err, rows, fields) => {
+      if (err) {
+        console.log("Failed to query: " + err);
+        // res.sendStatus(500);
+      }
+      res.json(rows);
+      console.log("successfully");
+      // console.log(rows);
+      return rows;
+    });
+    console.log("zostałeś zapisany!")
   }
+
+  
 
 
   public delete(req: Request, res: Response) {

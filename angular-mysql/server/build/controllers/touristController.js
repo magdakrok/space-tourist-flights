@@ -49,7 +49,17 @@ class TouristController {
         });
     }
     create(req, res) {
-        database_1.default.query("INSERT INTO tourist set ?", [req.body]);
+        database_1.default.query("INSERT INTO tourist set ?", [req.body], (err, rows, fields) => {
+            if (err) {
+                console.log("Failed to query: " + err);
+                // res.sendStatus(500);
+            }
+            res.json(rows);
+            console.log("successfully");
+            // console.log(rows);
+            return rows;
+        });
+        console.log("zostałeś zapisany!");
     }
     delete(req, res) {
         const id_tourist = req.params.id_tourist;

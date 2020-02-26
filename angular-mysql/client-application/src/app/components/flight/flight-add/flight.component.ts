@@ -50,8 +50,8 @@ export class FlightComponent implements OnInit {
     this.flightService.saveFlight(this.flight)
       .subscribe(
         res => {
-          // console.log(res),
-          this.message.success("save succesfull"),
+          console.log(res);
+          this.message.success("save succesfull");
             // this.flightService.getFlys();
             this.router.navigate([`/flys`]);
         },

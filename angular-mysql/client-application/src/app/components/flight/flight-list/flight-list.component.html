@@ -6,7 +6,8 @@
         <div class="col-sm-12">
             <div class="card text-center">
                 <div class="card-body">
-                    <table class="table">
+                    <div class= "table-responsive">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">Departure date:</th>
@@ -18,11 +19,11 @@
                         </thead>
                         <tbody *ngFor='let flights of flight'>
                             <tr>
-                                <td>{{flights.departure_date | date:'medium'}}</td>
-                                <td>{{flights.arrival_date | date:'medium'}}</td>
-                                <td>{{flights.number_of_seats}}</td>
-                                <td>{{flights.ticket_price}}</td>
-                                <td>
+                                <td scope="col">{{flights.departure_date | date:'medium'}}</td>
+                                <td scope="col">{{flights.arrival_date | date:'medium'}}</td>
+                                <td scope="col">{{flights.number_of_seats}}</td>
+                                <td scope="col">{{flights.ticket_price}}</td>
+                                <td scope="col">
                                     <button class="btn btn-success mr-1" [routerLink]="['edit/', flights.id_flight]">
                                         EDIT
                                     </button>
@@ -33,6 +34,7 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
                 </div>
             </div>
         </div>

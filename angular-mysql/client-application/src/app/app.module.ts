@@ -20,7 +20,7 @@ import { ReservationService } from './service/reservation.service';
 import { ReservationAddComponent } from './components/reservations/reservation-add/reservation-add.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgxLoadingModule } from 'ngx-loading';
 
 
 @NgModule({
@@ -37,6 +37,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ReservationComponent,
     ReservationAddComponent,
     
+    
   ],
   imports: [
     BrowserModule,
@@ -45,7 +46,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    FontAwesomeModule,
+    NgxLoadingModule.forRoot({})
     
   ],
   providers: [

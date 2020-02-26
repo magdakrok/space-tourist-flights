@@ -17,6 +17,9 @@ export class ReservationAddComponent implements OnInit {
   tourist: any = [];
   flight: any = [];
   show: boolean = false;
+  
+ 
+  param: any =[];
 
   connections: Connections = {
     id_connections: 0,
@@ -31,9 +34,14 @@ export class ReservationAddComponent implements OnInit {
     private router: Router,
     private message: MessageService) { }
 
+    departure_date: Date;
+    arrival_date: Date;
+    id_flight: number;
+
   ngOnInit() {
 
     const params = this.activatedRoute.snapshot.params;
+    this.id_flight = params.id_flight;
     if (params.id_flight) {
       this.flightService.getFly(params.id_flight).subscribe(
         res => {
@@ -52,12 +60,14 @@ export class ReservationAddComponent implements OnInit {
     this.touristService.getTouristName(first_name, last_name).subscribe(
       res => {
         this.tourist = res;
-        //console.log(res);
+        
+        console.log(res);
         if (res == 0) {
           this.message.success("You are new tourist, please sign up")
-          this.router.navigate([`/tourists/add`]);
+          this.router.navigate([`/tourists/add`, this.id_flight]);
         }
         this.toggle();
+        
       },
       err => {
         this.message.error("Something wrong, please try again");
