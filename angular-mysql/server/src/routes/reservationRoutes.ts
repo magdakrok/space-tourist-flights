@@ -14,6 +14,7 @@ class ReservationRoutes{
     config(): void{
         
         this.router.get('/:departure_date/:arrival_date', reservationController.reservation);
+        this.router.get('/:id_flight', reservationController.listNumberOfSeats);
     }
 }
 

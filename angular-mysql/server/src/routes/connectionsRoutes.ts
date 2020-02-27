@@ -15,7 +15,7 @@ class ConnectionRoutes{
         this.router.get('/:id_flight', connectionsController.listFlight);
         this.router.get('/', connectionsController.list);
         this.router.get('/:id_tourist/:id_flight', connectionsController.checkRes);
-        this.router.get('/:id_flight', connectionsController.listNumberOfSeats);
+        
         this.router.post('/', connectionsController.createConnection);
         this.router.delete('/:id_tourist', connectionsController.deleteTourist);
         this.router.delete('/:id_flight', connectionsController.deleteFlight);

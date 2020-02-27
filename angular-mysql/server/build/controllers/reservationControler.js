@@ -28,5 +28,18 @@ class ReservationController {
             });
         });
     }
+    listNumberOfSeats(req, res) {
+        const id_flight = req.params.id_flight;
+        console.log(id_flight);
+        database_1.default.query("SELECT COUNT(id_connections) AS number_seats FROM connections where id_flight = ?", [id_flight], (err, rows, fields) => {
+            if (err) {
+                console.log("Failed to query: " + err);
+                // res.sendStatus(500);
+            }
+            console.log(`id flight ${id_flight}`);
+            res.json(rows);
+            console.log(`successfully number seats: ${rows}`);
+        });
+    }
 }
 exports.reservationController = new ReservationController();

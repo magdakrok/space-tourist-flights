@@ -4,7 +4,7 @@ import {FlightListComponent} from './components/flight/flight-list/flight-list.c
 import {FlightComponent} from './components/flight/flight-add/flight.component';
 import {TouristListComponent} from './components/tourist/tourist-list/tourist-list.component';
 import {TouristAddComponent} from './components/tourist/tourist-add/tourist.component';
-import {ConnectionsTablesComponent} from '../../../client-application/src/app/components/connection-tables/connection-add-to-flight/connection-tables.component'
+import {ConnectionsTablesComponent} from './components/connection-tables/connection-add-to-flight/connection-tables.component'
 import {ConnectionDeleteComponent} from './components/connection-tables/connection-delete/connection-delete.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { ReservationComponent } from './components/reservations/reservations/reservation.component';

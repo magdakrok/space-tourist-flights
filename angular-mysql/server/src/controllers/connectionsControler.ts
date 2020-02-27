@@ -79,17 +79,6 @@ public createConnection(req: Request, res: Response) {
     });
   }
 
- public async listNumberOfSeats(req: Request, res: Response) {
-    const id_flight = req.params.id_flight;
-    console.log(id_flight);
-    await conn.query("SELECT COUNT(id_flight) FROM connections where id_flight = ?", [id_flight], (err, rows, fields) => {
-      if (err) {
-        console.log("Failed to query: " + err);
-        // res.sendStatus(500);
-      }
-      res.json(rows);
-      console.log("successfully");
-      });
-  }
+ 
 }
 export const connectionsController = new ConnectionController();

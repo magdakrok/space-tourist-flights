@@ -26,6 +26,7 @@ class Server {
         this.app.use('/api/tourist', touristRoutes);
         this.app.use('/api/flys', flyRoutes);
         this.app.use('/api/connection', connectionsRoutes);
+      // this.app.use('/api/connection/seats', connectionsRoutes);
         this.app.use('/api/reservation', reservationRoutes);
     }
     

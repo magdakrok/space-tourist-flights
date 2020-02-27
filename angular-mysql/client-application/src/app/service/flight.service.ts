@@ -13,7 +13,7 @@ export class FlightService {
   getFlys() {
     return this.http.get('http://localhost:3000/api/flys');
   }
-  getFly(id_flight: string) {
+  getFly(id_flight: number) {
     return this.http.get(`http://localhost:3000/api/flys/${id_flight}`);
   }
   saveFlight(flight: Flight) {
