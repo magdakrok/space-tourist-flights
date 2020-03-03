@@ -13,6 +13,7 @@ class FlyRoutes{
     config(): void {
         this.router.get('/', flyController.list);
         this.router.get('/:id_flight', flyController.getOne);
+        this.router.get('/:departure_date/:arrival_date', flyController.checkFlight);
         this.router.post('/', flyController.create);
         this.router.delete('/:id_flight', flyController.delete);
         this.router.put('/:id_flight', flyController.update);

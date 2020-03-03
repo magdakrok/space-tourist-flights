@@ -16,6 +16,11 @@ export class FlightService {
   getFly(id_flight: number) {
     return this.http.get(`http://localhost:3000/api/flys/${id_flight}`);
   }
+
+  checkFly(departure_date: Date, arrival_date: Date){
+    return this.http.get(`http://localhost:3000/api/flys/${departure_date}/${arrival_date}`);
+  }
+  
   saveFlight(flight: Flight) {
     return this.http.post(`http://localhost:3000/api/flys`, flight);
   }

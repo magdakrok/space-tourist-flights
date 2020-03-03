@@ -22,6 +22,10 @@ export class FlightComponent implements OnInit {
   };
 
   edit: boolean = false;
+ fly: boolean = false;
+ loading: boolean = false;
+  numberFly: any =[];
+
   constructor(private flightService: FlightService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -45,20 +49,50 @@ export class FlightComponent implements OnInit {
   }
 
   saveNewFlight() {
-    delete this.flight.departure_date;
-    delete this.flight.arrival_date;
-    this.flightService.saveFlight(this.flight)
-      .subscribe(
-        res => {
-          console.log(res);
-          this.message.success("save succesfull");
-            // this.flightService.getFlys();
-            this.router.navigate([`/flys`]);
-        },
-        err => {
-          console.error(err),
+    this.loading = true;
+    const departure_date= this.flight.departure_date;
+    const arrival_date = this.flight.arrival_date;
+
+    this.flightService.checkFly(departure_date, arrival_date)
+    .subscribe(
+      res => {
+        console.log(res);
+        if(res == 0){
+          this.fly = false;
+        }
+        else {
+          this.fly = true;
+        }
+      },
+      err => {
+        return console.error(err);
+      });
+
+      setTimeout(()=>
+      {
+        if(this.fly === false){
+          
+           this.flightService.saveFlight(this.flight)
+            .subscribe(
+             res => {
+              console.log(res);
+              this.message.success("save succesfull");
+
+              this.router.navigate([`/flys`]);
+            },
+            err => {
+            console.error(err),
             this.message.error("Something is wrong, please try again");
-        })
+            })
+          }
+          else{
+            this.message.error("This flight exists in the database");
+          }
+
+      this.loading = false;
+      }, 3000);
+
+
   }
 
 
@@ -68,7 +102,7 @@ export class FlightComponent implements OnInit {
     this.flightService.updateFlight(this.flight.id_flight, this.flight).subscribe(
       res => {
         //console.log(res);
-        this.message.success("Update succesfull")
+        this.message.success("Update succesfully")
       },
       err => {
         console.error(err),

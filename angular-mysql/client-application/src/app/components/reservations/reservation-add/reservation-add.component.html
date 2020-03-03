@@ -93,3 +93,13 @@
         </div>
     </div>
 </div>
+
+
+<ng-template #customLoadingTemplate>
+    <h3>
+        Please wait...
+    </h3>
+</ng-template>
+
+
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>

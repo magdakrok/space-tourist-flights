@@ -29,8 +29,32 @@ class FlyController {
     });
   }
 
+  public checkFlight(req: Request, res: Response) {
+
+    const departure_date = req.params.departure_date;
+    const arrival_date = req.params.arrival_date;
+    const fly = conn.query("SELECT * FROM flight where departure_date = ? and arrival_date = ?", [departure_date, arrival_date], (err, rows, fields) => {
+      if (err) {
+        console.log("Failed to query for flight: " + err);
+        res.sendStatus(500);
+      }
+      res.json(rows);
+      console.log(" successfully");
+    });
+  }
+
+
   public create(req: Request, res: Response) {
-    conn.query("INSERT INTO flight set ?", [req.body]);
+    conn.query("INSERT INTO flight set ?", [req.body],(err, rows, fields) => {
+      if (err) {
+        console.log("Failed to query: " + err);
+        // res.sendStatus(500);
+      }
+      res.json(rows);
+      console.log("successfully");
+      // console.log(rows);
+      return rows;
+    });
   }
 
   public delete(req: Request, res: Response) {

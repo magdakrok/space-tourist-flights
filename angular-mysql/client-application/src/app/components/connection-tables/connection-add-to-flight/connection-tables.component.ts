@@ -141,7 +141,7 @@ export class ConnectionsTablesComponent implements OnInit {
        if (this.flag === true) 
           {
             this.loading = false;
-            this.message.error("You are booked  this flight. please check another flight");
+            this.message.error("You are booked this flight. Please check another flight");
           } else {
        
             this.checkNumberSeats();
@@ -152,7 +152,7 @@ export class ConnectionsTablesComponent implements OnInit {
                 .subscribe(
                   res => {
                   this.loading = false;
-                  this.message.success("save succesfull");
+                  this.message.success("save succesfully");
                   },
                 err => 
                 {
@@ -162,7 +162,7 @@ export class ConnectionsTablesComponent implements OnInit {
                 });
               }else{
                 this.loading = false;
-                this.message.error("no free seats for this flight");
+                this.message.error("No free seats for this flight");
               }
             }, 5000);
           }
@@ -175,21 +175,21 @@ export class ConnectionsTablesComponent implements OnInit {
     checkNumberSeats(){
       this.reservationService.checkSeats(this.connections.id_flight).subscribe(
         res10 => {
-          console.log(`id flight ${this.connections.id_flight}`);
+          //console.log(`id flight ${this.connections.id_flight}`);
           this.check = res10;
          
          setTimeout(()=>{
           for(let i of this.check){
-          console.log(i.number_seats);
+          //console.log(i.number_seats);
           this.numberBookSeats = i.number_seats;
           }
           this.numberOfSeatsInFlight();
-          console.log(`liczba zajętych miejsc ${this.numberBookSeats}`);
+          //console.log(`liczba zajętych miejsc ${this.numberBookSeats}`);
         }, 2000);
       },
         err => {
           console.error(err);
-          this.message.error("Something wrong, please try again");
+         // this.message.error("Something wrong, please try again");
         });
       }
 

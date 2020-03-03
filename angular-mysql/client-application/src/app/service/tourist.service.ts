@@ -17,6 +17,11 @@ export class TouristService {
     return this.http.get(`http://localhost:3000/api/tourist/${id_tourist}`);
   }
 
+  checkTourist(first_name: string, last_name: string, date_of_birth: Date)
+  {
+    return this.http.get(`http://localhost:3000/api/tourist/${first_name}/${last_name}/${date_of_birth}`);
+  }
+
   getTouristName(first_name: string, last_name: string) {
     return this.http.get(`http://localhost:3000/api/tourist/${first_name}/${last_name}`)
   }

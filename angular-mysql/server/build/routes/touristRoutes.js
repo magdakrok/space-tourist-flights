@@ -10,6 +10,7 @@ class TouristRoutes {
     config() {
         this.router.get('/', touristController_1.touristController.list);
         this.router.get('/:id_tourist', touristController_1.touristController.getOne);
+        this.router.get('/:first_name/:last_name/:date_of_birth', touristController_1.touristController.checkTourist);
         this.router.post('/', touristController_1.touristController.create);
         this.router.delete('/:id_tourist', touristController_1.touristController.delete);
         this.router.put('/:id_tourist', touristController_1.touristController.update);

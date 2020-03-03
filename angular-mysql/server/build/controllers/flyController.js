@@ -36,8 +36,29 @@ class FlyController {
             console.log("I think we fetched flight successfully");
         });
     }
+    checkFlight(req, res) {
+        const departure_date = req.params.departure_date;
+        const arrival_date = req.params.arrival_date;
+        const fly = database_1.default.query("SELECT * FROM flight where departure_date = ? and arrival_date = ?", [departure_date, arrival_date], (err, rows, fields) => {
+            if (err) {
+                console.log("Failed to query for flight: " + err);
+                res.sendStatus(500);
+            }
+            res.json(rows);
+            console.log(" successfully");
+        });
+    }
     create(req, res) {
-        database_1.default.query("INSERT INTO flight set ?", [req.body]);
+        database_1.default.query("INSERT INTO flight set ?", [req.body], (err, rows, fields) => {
+            if (err) {
+                console.log("Failed to query: " + err);
+                // res.sendStatus(500);
+            }
+            res.json(rows);
+            console.log("successfully");
+            // console.log(rows);
+            return rows;
+        });
     }
     delete(req, res) {
         const id_flight = req.params.id_flight;

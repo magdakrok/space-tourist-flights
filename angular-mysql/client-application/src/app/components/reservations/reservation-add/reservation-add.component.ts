@@ -6,6 +6,7 @@ import { ConnectionsService } from 'src/app/service/connectionsService';
 import { Connections } from 'src/app/models/connections';
 import { Tourist } from 'src/app/models/tourist';
 import { MessageService } from 'src/app/service/message.service';
+import { ReservationService } from 'src/app/service/reservation.service';
 
 @Component({
   selector: 'app-reservation-add',
@@ -18,6 +19,14 @@ export class ReservationAddComponent implements OnInit {
   tourist: any = [];
   flight: any = [];
   show: boolean = false;
+  check: any=[];
+
+  numberBookSeats: number;
+  numberSeats: number;
+  freeSeats: boolean;
+  reservation: any = [];
+  public loading = false;
+
   
  
   param: any =[];
@@ -31,6 +40,8 @@ export class ReservationAddComponent implements OnInit {
   constructor(private flightService: FlightService,
     private connectionService: ConnectionsService,
     private touristService: TouristService,
+    private reservationService: ReservationService,
+    
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private message: MessageService) { }
@@ -95,25 +106,94 @@ export class ReservationAddComponent implements OnInit {
   }
 
   bookReservation(id_tourist: number) {
+    this.loading = true;
     const params = this.activatedRoute.snapshot.params;
 
     for (let id of this.tourist) {
       this.connections.id_tourist = id.id_tourist;
     }
+
     this.connections.id_flight = params.id_flight;
-    this.connectionService.saveConnection(this.connections)
-      .subscribe(
-        res => {
-          //console.log(res),
-          this.message.success("The flight is booking");
-        },
-        err => {
-          this.message.error("Something wrong, please try again");
-          console.log(err)
+    this.checkNumberSeats();
+
+    setTimeout(()=>{
+      if(this.freeSeats === true){
+
+
+        this.connectionService.saveConnection(this.connections)
+        .subscribe(
+          res => {
+          this.loading = false;
+          this.message.success("The flight is booked");
+          },
+        err => 
+        {
+        console.error(err);
+        this.loading = false;
+        this.message.error("Something wrong, please try again");
         });
+      }else{
+        this.loading = false;
+        this.message.error("no free seats for this flight");
       }
+    }, 5000);
+
+  }
+
+
 
   toggle() {
     this.show = !this.show;
   }
+
+  checkNumberSeats(){
+    this.reservationService.checkSeats(this.connections.id_flight).subscribe(
+      res10 => {
+        console.log(`id flight ${this.connections.id_flight}`);
+        this.check = res10;
+       
+       setTimeout(()=>{
+        for(let i of this.check){
+        console.log(i.number_seats);
+        this.numberBookSeats = i.number_seats;
+        }
+        this.numberOfSeatsInFlight();
+        console.log(`liczba zajętych miejsc ${this.numberBookSeats}`);
+      }, 2000);
+    },
+      err => {
+        console.error(err);
+        this.message.error("Something wrong, please try again");
+      });
+    }
+
+
+  numberOfSeatsInFlight(){
+    this.flightService.getFly(this.connections.id_flight).subscribe(
+      res => {
+        this.reservation = res;
+        console.log( res);
+
+        setTimeout(()=>{
+            for(let i of this.reservation){
+              this.numberSeats = i.number_of_seats;
+              console.log(this.numberSeats);
+            }
+
+           if(this.numberBookSeats < this.numberSeats){
+              this.freeSeats = true;
+              console.log("Są wolne miejsca");
+              
+             } else {
+                this.freeSeats = false;
+                console.log("nie ma wolnych miejsc");
+              }
+              console.log(this.freeSeats);
+        }, 1000);
+      },
+      err => {
+        return console.error(err);
+      });
+  }
+
 }
