@@ -36,7 +36,6 @@ export class TouristAddComponent implements OnInit {
   
   
   constructor(private touristService: TouristService,
-    private reservationService: ReservationService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private message: MessageService) { }
@@ -47,17 +46,14 @@ export class TouristAddComponent implements OnInit {
     this.arrival_date=params.arrival_date;
     this.departure_date = params.departure_date;
 
-    console.log(this.param);
-    
-    if (params.id_tourist) {
+   if (params.id_tourist) {
       this.touristService.getTourist(params.id_tourist).subscribe(
         res => {
           this.edit = true,
             this.tourist == res;
         },
         err => {
-          this.message.error("Something wrong, please try again");
-          console.log(err)
+          this.message.error("Something went wrong, please try again");
         }
       )
     }
@@ -80,7 +76,7 @@ export class TouristAddComponent implements OnInit {
       }
       },
     err => {
-      this.message.error("Something wrong, please try again");
+      this.message.error("Something went wrong, please try again");
       return console.error(err);
     });
 
@@ -90,16 +86,14 @@ export class TouristAddComponent implements OnInit {
               this.touristService.saveTourist(this.tourist)
              .subscribe(
                   res => {
-                  console.log(res);
-                  this.message.success("save succesfully");
+                  this.message.success("saved");
                   
                   this.touristService.getTouristName(this.tourist.first_name, this.tourist.last_name).subscribe(
                       res => {
-                        console.log(res);
                         this.touristt = res;
                       })
 
-                      console.log(this.id_flight);
+                     
                     setTimeout(()=>{
                       if(this.id_flight === undefined){
                           this.router.navigate(['/home']);
@@ -116,12 +110,11 @@ export class TouristAddComponent implements OnInit {
                     
                      }, 2000);
               err => {
-                    this.message.error("Something wrong, please try again");
-                    console.log(err)
-                  }
+                    this.message.error("Something went wrong, please try again");
+                    }
               })
       }else{
-        this.message.error("You are in the database");
+        this.message.error("You exist in the database");
       }
       this.loading = false;
       }, 5000);
@@ -132,11 +125,9 @@ export class TouristAddComponent implements OnInit {
     updateTourist() {
     this.touristService.updateTourist(this.tourist.id_tourist, this.tourist).subscribe(
       res => {
-        //console.log(res);
-      },
+        },
       err => {
-        this.message.error("Something wrong, please try again");
-        console.log(err)
-      })
+        this.message.error("Something  went wrong, please try again");
+        })
   }
 }

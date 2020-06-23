@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Tourist } from '../models/tourist'
+import conn from './datebase/database';
 
 @Injectable({
   providedIn: 'root'
@@ -35,4 +36,6 @@ export class TouristService {
   updateTourist(id_tourist: number, updateTourist: Tourist) {
     return this.http.put(`http://localhost:3000/api/tourist`, updateTourist);
   }
+
+ 
 }

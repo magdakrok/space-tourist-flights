@@ -29,24 +29,19 @@ export class HomePageComponent implements OnInit {
   constructor(private flight: FlightService,
     private connectionsService: ConnectionsService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private message: MessageService) { }
 
   ngOnInit() {
-    // this.getReservation();
-    // this.getFlight();
+ 
   }
 
   getFlight() {
-
-
-    this.flight.getFlys().subscribe(
+   this.flight.getFlys().subscribe(
       res => {
         this.connect2 = res;
-        // console.log(res);
-      },
+        },
       err => {
-        this.message.error("Something wrong, please try again");
+        this.message.error("Something went wrong, please try again");
         console.log(err),
           setTimeout(() => {
             this.router.navigate(['/']);
@@ -58,10 +53,9 @@ export class HomePageComponent implements OnInit {
     this.connectionsService.getData().subscribe(
       res3 => {
         this.reservation = res3;
-        //console.log(res3);
-      },
+       },
       err => {
-        this.message.error("Something wrong, please try again");
+        this.message.error("Something went wrong, please try again");
         console.log(err);
       })
   }

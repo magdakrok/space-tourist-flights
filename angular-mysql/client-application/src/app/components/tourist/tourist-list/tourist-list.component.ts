@@ -22,25 +22,21 @@ export class TouristListComponent implements OnInit {
     this.touristsService.getTourists().subscribe(
       res => {
         this.touristt = res;
-        //console.log(res)
-      },
+        },
       err => {
-        this.message.error("Something wrong, please try again");
-        console.log(err)
-      }
+        this.message.error("Something went wrong, please try again");
+        }
     );
   }
   deleteTourist(id_tourist: string) {
     this.touristsService.deleteTourist(id_tourist).subscribe(
       res => {
-        //console.log(res);
         this.getTourists();
-        this.message.success("Delete succesfull")
+        this.message.success("Deleted")
       },
       err => {
-        this.message.error("Something wrong, please try again");
-        console.log(err)
-      }
+        this.message.error("Something went wrong, please try again");
+        }
     )
   }
 }

@@ -7,8 +7,6 @@ import { ConnectionsService } from '../../../service/connectionsService';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FlightService } from 'src/app/service/flight.service';
 import { MessageService } from 'src/app/service/message.service';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { ReservationComponent } from '../../reservations/reservations/reservation.component';
 import { ReservationService } from 'src/app/service/reservation.service';
 
 
@@ -75,17 +73,13 @@ export class ConnectionsTablesComponent implements OnInit {
   ngOnInit() {
     this.getFlight();
     this.getTourist();
-  //  this.getReservation();
-  }
+}
 
-  
-
-  getTourist() {
+   getTourist() {
     this.tourists.getTourists().subscribe(
       res2 => {
         this.touristTable = res2;
-        //console.log(res2);
-      },
+       },
       err => {
         return console.error(err);
       })
@@ -95,7 +89,6 @@ export class ConnectionsTablesComponent implements OnInit {
     this.flight.getFlys().subscribe(
       res => {
         this.flightTable = res;
-        //console.log(res);
       },
       err => {
         return console.error(err);
@@ -106,7 +99,6 @@ export class ConnectionsTablesComponent implements OnInit {
     this.connectionsService.getData().subscribe(
       res3 => {
         this.reservation = res3;
-        //console.log(res3);
       },
       err => {
         return console.error(err);
@@ -121,8 +113,7 @@ export class ConnectionsTablesComponent implements OnInit {
     this.connectionsService.checkReservation(id_tourist, id_flight).subscribe(
       res8 => {
         this.checkConnection = res8;
-        console.log(res8);
-        },
+      },
         err => {
         return console.error(err);
         });
@@ -141,7 +132,7 @@ export class ConnectionsTablesComponent implements OnInit {
        if (this.flag === true) 
           {
             this.loading = false;
-            this.message.error("You are booked this flight. Please check another flight");
+            this.message.error("You booked this flight. Please check another flight");
           } else {
        
             this.checkNumberSeats();
@@ -152,13 +143,13 @@ export class ConnectionsTablesComponent implements OnInit {
                 .subscribe(
                   res => {
                   this.loading = false;
-                  this.message.success("save succesfully");
+                  this.message.success("Saved");
                   },
                 err => 
                 {
                 console.error(err);
                 this.loading = false;
-                this.message.error("Something wrong, please try again");
+                this.message.error("Something went wrong, please try again");
                 });
               }else{
                 this.loading = false;
@@ -175,21 +166,17 @@ export class ConnectionsTablesComponent implements OnInit {
     checkNumberSeats(){
       this.reservationService.checkSeats(this.connections.id_flight).subscribe(
         res10 => {
-          //console.log(`id flight ${this.connections.id_flight}`);
-          this.check = res10;
+        this.check = res10;
          
          setTimeout(()=>{
           for(let i of this.check){
-          //console.log(i.number_seats);
-          this.numberBookSeats = i.number_seats;
+         this.numberBookSeats = i.number_seats;
           }
           this.numberOfSeatsInFlight();
-          //console.log(`liczba zajętych miejsc ${this.numberBookSeats}`);
         }, 2000);
       },
         err => {
           console.error(err);
-         // this.message.error("Something wrong, please try again");
         });
       }
 
@@ -198,24 +185,19 @@ export class ConnectionsTablesComponent implements OnInit {
       this.flight.getFly(this.connections.id_flight).subscribe(
         res => {
           this.reservation = res;
-          console.log( res);
+         
 
           setTimeout(()=>{
               for(let i of this.reservation){
                 this.numberSeats = i.number_of_seats;
                 console.log(this.numberSeats);
               }
-
-             if(this.numberBookSeats < this.numberSeats){
+              if(this.numberBookSeats < this.numberSeats){
                 this.freeSeats = true;
-                console.log("Są wolne miejsca");
-                
-               } else {
+              } else {
                   this.freeSeats = false;
-                  console.log("nie ma wolnych miejsc");
-                }
-                console.log(this.freeSeats);
-          }, 1000);
+              }
+            }, 1000);
         },
         err => {
           return console.error(err);

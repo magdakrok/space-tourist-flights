@@ -4,7 +4,6 @@ import { TouristService } from 'src/app/service/tourist.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConnectionsService } from 'src/app/service/connectionsService';
 import { Connections } from 'src/app/models/connections';
-import { Tourist } from 'src/app/models/tourist';
 import { MessageService } from 'src/app/service/message.service';
 import { ReservationService } from 'src/app/service/reservation.service';
 
@@ -60,13 +59,10 @@ export class ReservationAddComponent implements OnInit {
       this.flightService.getFly(params.id_flight).subscribe(
         res => {
           this.flight = res;
-          // console.log(res);
-          
         },
         err => {
-          this.message.error("Something wrong, please try again");
-          console.log(err)
-        }
+          this.message.error("Something went wrong, please try again");
+          }
       )
     }
 
@@ -74,13 +70,11 @@ export class ReservationAddComponent implements OnInit {
       this.touristService.getTourist(params.id_tourist).subscribe(
         res => {
           this.tourist = res;
-          // console.log(res);
-          this.toggle();
+           this.toggle();
         },
         err => {
-          this.message.error("Something wrong, please try again");
-          console.log(err)
-        }
+          this.message.error("Something went wrong, please try again");
+           }
       )
     }
   }
@@ -89,8 +83,6 @@ export class ReservationAddComponent implements OnInit {
     this.touristService.getTouristName(first_name, last_name).subscribe(
       res => {
         this.tourist = res;
-        
-        console.log(res);
         if (res == 0) {
           this.message.success("You are new tourist, please sign up")
           this.router.navigate([`/tourists/add`, this.id_flight]);
@@ -99,9 +91,8 @@ export class ReservationAddComponent implements OnInit {
         
       },
       err => {
-        this.message.error("Something wrong, please try again");
-        console.log(err)
-      }
+        this.message.error("Something went wrong, please try again");
+       }
     )
   }
 
@@ -118,8 +109,6 @@ export class ReservationAddComponent implements OnInit {
 
     setTimeout(()=>{
       if(this.freeSeats === true){
-
-
         this.connectionService.saveConnection(this.connections)
         .subscribe(
           res => {
@@ -130,7 +119,7 @@ export class ReservationAddComponent implements OnInit {
         {
         console.error(err);
         this.loading = false;
-        this.message.error("Something wrong, please try again");
+        this.message.error("Something went wrong, please try again");
         });
       }else{
         this.loading = false;
@@ -139,8 +128,6 @@ export class ReservationAddComponent implements OnInit {
     }, 5000);
 
   }
-
-
 
   toggle() {
     this.show = !this.show;
@@ -154,16 +141,13 @@ export class ReservationAddComponent implements OnInit {
        
        setTimeout(()=>{
         for(let i of this.check){
-        console.log(i.number_seats);
-        this.numberBookSeats = i.number_seats;
+       this.numberBookSeats = i.number_seats;
         }
         this.numberOfSeatsInFlight();
-        console.log(`liczba zajętych miejsc ${this.numberBookSeats}`);
-      }, 2000);
+        }, 2000);
     },
       err => {
-        console.error(err);
-        this.message.error("Something wrong, please try again");
+        this.message.error("Something went wrong, please try again");
       });
     }
 
@@ -182,12 +166,9 @@ export class ReservationAddComponent implements OnInit {
 
            if(this.numberBookSeats < this.numberSeats){
               this.freeSeats = true;
-              console.log("Są wolne miejsca");
-              
-             } else {
+              } else {
                 this.freeSeats = false;
-                console.log("nie ma wolnych miejsc");
-              }
+                }
               console.log(this.freeSeats);
         }, 1000);
       },

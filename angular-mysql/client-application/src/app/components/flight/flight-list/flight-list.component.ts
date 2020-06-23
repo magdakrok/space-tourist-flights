@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FlightService } from '../../../service/flight.service';
-import { Flight } from '../../../models/flight';
 import { MessageService } from 'src/app/service/message.service';
 
 @Component({
@@ -12,7 +11,7 @@ export class FlightListComponent implements OnInit {
 
   flight: any = [];
   constructor(private flightsService: FlightService,
-    private message: MessageService) { }
+  private message: MessageService) { }
 
   ngOnInit() {
     this.getFlights();
@@ -22,11 +21,9 @@ export class FlightListComponent implements OnInit {
     this.flightsService.getFlys().subscribe(
       res => {
         this.flight = res;
-        //  console.log(res)
-      },
+       },
       err => {
-        console.log(err);
-        this.message.error("Something wrong, please try again");
+        this.message.error("Something went wrong, please try again");
       }
     );
   }
@@ -34,13 +31,12 @@ export class FlightListComponent implements OnInit {
   deleteFlight(id_flight: string) {
     this.flightsService.deleteFly(id_flight).subscribe(
       res => {
-        //console.log(res);
         this.getFlights();
-        this.message.success("Delete succesfull");
+        this.message.success("Deleted");
       },
       err => {
-        this.message.error("Something wrong, please try again");
-        console.log(err)
+        this.message.error("Something went wrong, please try again");
+        
       }
     )
   }

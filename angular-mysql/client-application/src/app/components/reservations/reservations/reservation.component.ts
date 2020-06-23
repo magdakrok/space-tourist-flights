@@ -37,17 +37,16 @@ export class ReservationComponent implements OnInit {
         .subscribe(
           res => {
             this.reser = res;
-            //console.log(res);
+            
 
             if (res == 0) {
-              this.message.error("Please choose date");
+              this.message.error("Please select date");
               this.router.navigate([`/`]);
             }
           },
           err => {
-            this.message.error("Something wrong, please try again");
-            console.log(err)
-          })
+            this.message.error("Something went wrong, please try again");
+           })
     }
   }
 }

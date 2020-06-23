@@ -22,16 +22,16 @@ export class FlightComponent implements OnInit {
   };
 
   edit: boolean = false;
- fly: boolean = false;
- loading: boolean = false;
-  numberFly: any =[];
+  fly: boolean = false;
+  loading: boolean = false;
+  numberFly: any = [];
 
   constructor(private flightService: FlightService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private message: MessageService) { 
+    private message: MessageService) {
 
-    }
+  }
 
   ngOnInit() {
     const params = this.activatedRoute.snapshot.params;
@@ -39,7 +39,6 @@ export class FlightComponent implements OnInit {
       this.flightService.getFly(params.id_flight).subscribe(
         res => {
           this.flight == res;
-          // console.log(res),
           this.edit = true;
         },
         err => {
@@ -50,50 +49,46 @@ export class FlightComponent implements OnInit {
 
   saveNewFlight() {
     this.loading = true;
-    const departure_date= this.flight.departure_date;
+    const departure_date = this.flight.departure_date;
     const arrival_date = this.flight.arrival_date;
 
     this.flightService.checkFly(departure_date, arrival_date)
-    .subscribe(
-      res => {
-        console.log(res);
-        if(res == 0){
-          this.fly = false;
-        }
-        else {
-          this.fly = true;
-        }
-      },
-      err => {
-        return console.error(err);
-      });
+      .subscribe(
+        res => {
+          console.log(res);
+          if (res == 0) {
+            this.fly = false;
+          }
+          else {
+            this.fly = true;
+          }
+        },
+        err => {
+          return console.error(err);
+        });
 
-      setTimeout(()=>
-      {
-        if(this.fly === false){
-          
-           this.flightService.saveFlight(this.flight)
-            .subscribe(
-             res => {
+    setTimeout(() => {
+      if (this.fly === false) {
+
+        this.flightService.saveFlight(this.flight)
+          .subscribe(
+            res => {
               console.log(res);
-              this.message.success("save succesfull");
-
+              this.message.success("saved");
               this.router.navigate([`/flys`]);
             },
             err => {
-            console.error(err),
-            this.message.error("Something is wrong, please try again");
+              console.error(err),
+                this.message.error("Something went wrong, please try again");
             })
-          }
-          else{
-            this.message.error("This flight exists in the database");
-          }
+      }
+      else {
+        this.message.error("This flight exists in the database");
+      }
 
       this.loading = false;
-      }, 3000);
-
-
-  }
+    }, 3000);
+}
 
 
   updateFlight() {
@@ -101,12 +96,11 @@ export class FlightComponent implements OnInit {
     delete this.flight.arrival_date;
     this.flightService.updateFlight(this.flight.id_flight, this.flight).subscribe(
       res => {
-        //console.log(res);
-        this.message.success("Update succesfully")
+      this.message.success("Updated")
       },
       err => {
         console.error(err),
-          this.message.error("Something is wrong, please try again");
+          this.message.error("Something went wrong, please try again");
       })
   }
 }

@@ -36,7 +36,7 @@ const routes: Routes = [
 
   {
     path: "reservation/add/:id_flight/:id_tourist",
-    component: ReservationAddComponent
+   component: ReservationAddComponent
   },
   {
     path: 'flys',
