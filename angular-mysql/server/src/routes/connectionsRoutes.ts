@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import {connectionsController} from '../controllers/connectionsControler';
-import conn  from '../database';
+
 
 class ConnectionRoutes{
 
