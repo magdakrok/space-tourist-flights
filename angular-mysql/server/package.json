@@ -7,9 +7,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc -w",
-    "dev": "nodemon build/index.js",
-    "tsc" : "tsc"
+    "start": "tsc -w && nodemon build/index.js",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w"
   },
   "keywords": [],
   "author": "",
